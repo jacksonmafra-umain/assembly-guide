@@ -1,0 +1,1105 @@
+{
+  "id": "billy-40",
+  "name": "BILLY bookcase 40 cm",
+  "dimensionsMm": {
+    "x": 400,
+    "y": 279,
+    "z": 2019
+  },
+  "materials": {
+    "panelThickness": 15,
+    "backThickness": 3
+  },
+  "panels": [
+    {
+      "id": "side-left",
+      "name": "Left side",
+      "role": "side",
+      "size": {
+        "x": 15,
+        "y": 280,
+        "z": 2020
+      }
+    },
+    {
+      "id": "side-right",
+      "name": "Right side",
+      "role": "side",
+      "size": {
+        "x": 15,
+        "y": 280,
+        "z": 2020
+      }
+    },
+    {
+      "id": "top",
+      "name": "Top",
+      "role": "top",
+      "size": {
+        "x": 370,
+        "y": 270,
+        "z": 15
+      }
+    },
+    {
+      "id": "bottom",
+      "name": "Bottom",
+      "role": "bottom",
+      "size": {
+        "x": 370,
+        "y": 270,
+        "z": 15
+      }
+    },
+    {
+      "id": "fixed-shelf",
+      "name": "Fixed shelf",
+      "role": "fixed-shelf",
+      "size": {
+        "x": 370,
+        "y": 270,
+        "z": 15
+      }
+    },
+    {
+      "id": "plinth",
+      "name": "Plinth",
+      "role": "plinth",
+      "size": {
+        "x": 370,
+        "y": 15,
+        "z": 60
+      }
+    },
+    {
+      "id": "back",
+      "name": "Back panel",
+      "role": "back",
+      "size": {
+        "x": 384,
+        "y": 3,
+        "z": 2000
+      }
+    },
+    {
+      "id": "shelf-1",
+      "name": "Shelf 1",
+      "role": "shelf",
+      "size": {
+        "x": 366,
+        "y": 255,
+        "z": 15
+      }
+    },
+    {
+      "id": "shelf-2",
+      "name": "Shelf 2",
+      "role": "shelf",
+      "size": {
+        "x": 366,
+        "y": 255,
+        "z": 15
+      }
+    },
+    {
+      "id": "shelf-3",
+      "name": "Shelf 3",
+      "role": "shelf",
+      "size": {
+        "x": 366,
+        "y": 255,
+        "z": 15
+      }
+    },
+    {
+      "id": "shelf-4",
+      "name": "Shelf 4",
+      "role": "shelf",
+      "size": {
+        "x": 366,
+        "y": 255,
+        "z": 15
+      }
+    }
+  ],
+  "hardware": [
+    {
+      "partNumber": "101351",
+      "kind": "dowel",
+      "quantity": 16
+    },
+    {
+      "partNumber": "118331",
+      "kind": "cam-screw",
+      "quantity": 12
+    },
+    {
+      "partNumber": "119081",
+      "kind": "cam-lock",
+      "quantity": 12
+    },
+    {
+      "partNumber": "151706",
+      "kind": "connector",
+      "quantity": 6
+    },
+    {
+      "partNumber": "151705",
+      "kind": "nail",
+      "quantity": 6
+    },
+    {
+      "partNumber": "131372",
+      "kind": "shelf-pin",
+      "quantity": 16
+    },
+    {
+      "partNumber": "109041",
+      "kind": "wood-screw",
+      "quantity": 2
+    },
+    {
+      "partNumber": "bracket",
+      "kind": "wall-bracket",
+      "quantity": 2
+    },
+    {
+      "partNumber": "washer",
+      "kind": "washer",
+      "quantity": 4
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "sourcePages": [
+        7
+      ],
+      "text": "Push 16 dowels into the ends of the top, the bottom, the fixed shelf and the plinth.",
+      "actions": [
+        {
+          "type": "place-panel",
+          "panelId": "top",
+          "pose": {
+            "position": {
+              "x": 15,
+              "y": 610,
+              "z": 2005
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+z"
+        },
+        {
+          "type": "place-panel",
+          "panelId": "bottom",
+          "pose": {
+            "position": {
+              "x": 15,
+              "y": 610,
+              "z": 60
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+z"
+        },
+        {
+          "type": "place-panel",
+          "panelId": "fixed-shelf",
+          "pose": {
+            "position": {
+              "x": 15,
+              "y": 610,
+              "z": 1003
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+z"
+        },
+        {
+          "type": "place-panel",
+          "panelId": "plinth",
+          "pose": {
+            "position": {
+              "x": 15,
+              "y": 855,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "101351",
+          "kind": "dowel",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "-x"
+          },
+          "from": "-x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "101351",
+          "kind": "dowel",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "+x"
+          },
+          "from": "+x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "101351",
+          "kind": "dowel",
+          "count": 2,
+          "target": {
+            "panelId": "bottom",
+            "face": "-x"
+          },
+          "from": "-x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "101351",
+          "kind": "dowel",
+          "count": 2,
+          "target": {
+            "panelId": "bottom",
+            "face": "+x"
+          },
+          "from": "+x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "101351",
+          "kind": "dowel",
+          "count": 2,
+          "target": {
+            "panelId": "fixed-shelf",
+            "face": "-x"
+          },
+          "from": "-x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "101351",
+          "kind": "dowel",
+          "count": 2,
+          "target": {
+            "panelId": "fixed-shelf",
+            "face": "+x"
+          },
+          "from": "+x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "101351",
+          "kind": "dowel",
+          "count": 2,
+          "target": {
+            "panelId": "plinth",
+            "face": "-x",
+            "offsetsMm": [
+              15,
+              45
+            ]
+          },
+          "from": "-x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "101351",
+          "kind": "dowel",
+          "count": 2,
+          "target": {
+            "panelId": "plinth",
+            "face": "+x",
+            "offsetsMm": [
+              15,
+              45
+            ]
+          },
+          "from": "+x"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "sourcePages": [
+        8
+      ],
+      "text": "Screw 12 cam screws into the inner faces of both sides, 6 in each.",
+      "actions": [
+        {
+          "type": "place-panel",
+          "panelId": "side-left",
+          "pose": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+z"
+        },
+        {
+          "type": "place-panel",
+          "panelId": "side-right",
+          "pose": {
+            "position": {
+              "x": 985,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "118331",
+          "kind": "cam-screw",
+          "count": 3,
+          "target": {
+            "panelId": "side-left",
+            "face": "+x",
+            "offsetsMm": [
+              67.5,
+              1010.5,
+              2012.5
+            ],
+            "acrossMm": 60
+          },
+          "from": "+x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "118331",
+          "kind": "cam-screw",
+          "count": 3,
+          "target": {
+            "panelId": "side-left",
+            "face": "+x",
+            "offsetsMm": [
+              67.5,
+              1010.5,
+              2012.5
+            ],
+            "acrossMm": 225
+          },
+          "from": "+x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "118331",
+          "kind": "cam-screw",
+          "count": 3,
+          "target": {
+            "panelId": "side-right",
+            "face": "-x",
+            "offsetsMm": [
+              67.5,
+              1010.5,
+              2012.5
+            ],
+            "acrossMm": 60
+          },
+          "from": "-x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "118331",
+          "kind": "cam-screw",
+          "count": 3,
+          "target": {
+            "panelId": "side-right",
+            "face": "-x",
+            "offsetsMm": [
+              67.5,
+              1010.5,
+              2012.5
+            ],
+            "acrossMm": 225
+          },
+          "from": "-x"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "sourcePages": [
+        8
+      ],
+      "text": "Fit the bottom, the plinth and the fixed shelf onto the dowels of the left side.",
+      "actions": [
+        {
+          "type": "place-panel",
+          "panelId": "bottom",
+          "pose": {
+            "position": {
+              "x": 15,
+              "y": 10,
+              "z": 60
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+x"
+        },
+        {
+          "type": "place-panel",
+          "panelId": "plinth",
+          "pose": {
+            "position": {
+              "x": 15,
+              "y": 255,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+x"
+        },
+        {
+          "type": "place-panel",
+          "panelId": "fixed-shelf",
+          "pose": {
+            "position": {
+              "x": 15,
+              "y": 10,
+              "z": 1003
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+x"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "sourcePages": [
+        9
+      ],
+      "text": "Lock the bottom and the fixed shelf to the left side with 4 cam locks.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "bottom",
+            "face": "-z",
+            "offsetsMm": [
+              9
+            ],
+            "acrossMm": 50
+          },
+          "from": "-z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "bottom",
+            "face": "-z",
+            "offsetsMm": [
+              9
+            ],
+            "acrossMm": 215
+          },
+          "from": "-z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "fixed-shelf",
+            "face": "-z",
+            "offsetsMm": [
+              9
+            ],
+            "acrossMm": 50
+          },
+          "from": "-z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "fixed-shelf",
+            "face": "-z",
+            "offsetsMm": [
+              9
+            ],
+            "acrossMm": 215
+          },
+          "from": "-z"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "sourcePages": [
+        10
+      ],
+      "text": "Fit the top and lock it with 2 cam locks.",
+      "actions": [
+        {
+          "type": "place-panel",
+          "panelId": "top",
+          "pose": {
+            "position": {
+              "x": 15,
+              "y": 10,
+              "z": 2005
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              9
+            ],
+            "acrossMm": 50
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              9
+            ],
+            "acrossMm": 215
+          },
+          "from": "+z"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "sourcePages": [
+        11
+      ],
+      "text": "Lower the right side onto the dowels.",
+      "actions": [
+        {
+          "type": "place-panel",
+          "panelId": "side-right",
+          "pose": {
+            "position": {
+              "x": 385,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+x"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "sourcePages": [
+        11
+      ],
+      "text": "Lock the right side with 6 cam locks.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "bottom",
+            "face": "-z",
+            "offsetsMm": [
+              361
+            ],
+            "acrossMm": 50
+          },
+          "from": "-z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "bottom",
+            "face": "-z",
+            "offsetsMm": [
+              361
+            ],
+            "acrossMm": 215
+          },
+          "from": "-z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "fixed-shelf",
+            "face": "-z",
+            "offsetsMm": [
+              361
+            ],
+            "acrossMm": 50
+          },
+          "from": "-z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "fixed-shelf",
+            "face": "-z",
+            "offsetsMm": [
+              361
+            ],
+            "acrossMm": 215
+          },
+          "from": "-z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              361
+            ],
+            "acrossMm": 50
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              361
+            ],
+            "acrossMm": 215
+          },
+          "from": "+z"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "sourcePages": [
+        12
+      ],
+      "text": "Slide the back panel into the grooves.",
+      "actions": [
+        {
+          "type": "place-panel",
+          "panelId": "back",
+          "pose": {
+            "position": {
+              "x": 8,
+              "y": 3,
+              "z": 15
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "-z"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "sourcePages": [
+        13
+      ],
+      "text": "Fix the back panel with 6 plugs and 6 pins.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "151706",
+          "kind": "connector",
+          "count": 3,
+          "target": {
+            "panelId": "back",
+            "face": "-y",
+            "offsetsMm": [
+              52.5,
+              995.5,
+              1997.5
+            ],
+            "acrossMm": 40
+          },
+          "from": "-y"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "151706",
+          "kind": "connector",
+          "count": 3,
+          "target": {
+            "panelId": "back",
+            "face": "-y",
+            "offsetsMm": [
+              52.5,
+              995.5,
+              1997.5
+            ],
+            "acrossMm": 344
+          },
+          "from": "-y"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "151705",
+          "kind": "nail",
+          "count": 3,
+          "target": {
+            "panelId": "back",
+            "face": "-y",
+            "offsetsMm": [
+              52.5,
+              995.5,
+              1997.5
+            ],
+            "acrossMm": 40
+          },
+          "from": "-y"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "151705",
+          "kind": "nail",
+          "count": 3,
+          "target": {
+            "panelId": "back",
+            "face": "-y",
+            "offsetsMm": [
+              52.5,
+              995.5,
+              1997.5
+            ],
+            "acrossMm": 344
+          },
+          "from": "-y"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "sourcePages": [
+        14
+      ],
+      "text": "Stand the bookcase up and fix 2 wall brackets to the top with 2 screws and 4 washers.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "bracket",
+          "kind": "wall-bracket",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              80,
+              290
+            ],
+            "acrossMm": 20
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "washer",
+          "kind": "washer",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              80,
+              290
+            ],
+            "acrossMm": 20
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "109041",
+          "kind": "wood-screw",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              80,
+              290
+            ],
+            "acrossMm": 20
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "washer",
+          "kind": "washer",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              80,
+              290
+            ],
+            "acrossMm": 4
+          },
+          "from": "+z"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "sourcePages": [
+        15
+      ],
+      "text": "Push 16 shelf pins into the sides, 8 in each.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "131372",
+          "kind": "shelf-pin",
+          "count": 4,
+          "target": {
+            "panelId": "side-left",
+            "face": "+x",
+            "offsetsMm": [
+              377,
+              687,
+              1337,
+              1667
+            ],
+            "acrossMm": 40
+          },
+          "from": "+x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "131372",
+          "kind": "shelf-pin",
+          "count": 4,
+          "target": {
+            "panelId": "side-left",
+            "face": "+x",
+            "offsetsMm": [
+              377,
+              687,
+              1337,
+              1667
+            ],
+            "acrossMm": 240
+          },
+          "from": "+x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "131372",
+          "kind": "shelf-pin",
+          "count": 4,
+          "target": {
+            "panelId": "side-right",
+            "face": "-x",
+            "offsetsMm": [
+              377,
+              687,
+              1337,
+              1667
+            ],
+            "acrossMm": 40
+          },
+          "from": "-x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "131372",
+          "kind": "shelf-pin",
+          "count": 4,
+          "target": {
+            "panelId": "side-right",
+            "face": "-x",
+            "offsetsMm": [
+              377,
+              687,
+              1337,
+              1667
+            ],
+            "acrossMm": 240
+          },
+          "from": "-x"
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "sourcePages": [
+        16
+      ],
+      "text": "Place the 4 adjustable shelves on the pins.",
+      "actions": [
+        {
+          "type": "place-panel",
+          "panelId": "shelf-1",
+          "pose": {
+            "position": {
+              "x": 17,
+              "y": 12,
+              "z": 380
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+y"
+        },
+        {
+          "type": "place-panel",
+          "panelId": "shelf-2",
+          "pose": {
+            "position": {
+              "x": 17,
+              "y": 12,
+              "z": 690
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+y"
+        },
+        {
+          "type": "place-panel",
+          "panelId": "shelf-3",
+          "pose": {
+            "position": {
+              "x": 17,
+              "y": 12,
+              "z": 1340
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+y"
+        },
+        {
+          "type": "place-panel",
+          "panelId": "shelf-4",
+          "pose": {
+            "position": {
+              "x": 17,
+              "y": 12,
+              "z": 1670
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+y"
+        }
+      ]
+    }
+  ],
+  "source": {
+    "pdf": "/pdfs/billy-bookcase-white__AA-2287624-3-100.pdf"
+  }
+}
