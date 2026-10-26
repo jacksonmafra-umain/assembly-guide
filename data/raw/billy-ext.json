@@ -1,0 +1,636 @@
+{
+  "id": "billy-ext",
+  "name": "BILLY height extension unit 80 cm",
+  "dimensionsMm": {
+    "x": 787,
+    "y": 279,
+    "z": 356
+  },
+  "materials": {
+    "panelThickness": 15,
+    "backThickness": 3
+  },
+  "panels": [
+    {
+      "id": "side-left",
+      "name": "Left side",
+      "role": "side",
+      "size": {
+        "x": 15,
+        "y": 280,
+        "z": 350
+      }
+    },
+    {
+      "id": "side-right",
+      "name": "Right side",
+      "role": "side",
+      "size": {
+        "x": 15,
+        "y": 280,
+        "z": 350
+      }
+    },
+    {
+      "id": "top",
+      "name": "Top",
+      "role": "top",
+      "size": {
+        "x": 770,
+        "y": 270,
+        "z": 15
+      }
+    },
+    {
+      "id": "bottom",
+      "name": "Bottom",
+      "role": "bottom",
+      "size": {
+        "x": 770,
+        "y": 270,
+        "z": 15
+      }
+    },
+    {
+      "id": "back",
+      "name": "Back panel",
+      "role": "back",
+      "size": {
+        "x": 784,
+        "y": 3,
+        "z": 335
+      }
+    }
+  ],
+  "hardware": [
+    {
+      "partNumber": "101351",
+      "kind": "dowel",
+      "quantity": 4
+    },
+    {
+      "partNumber": "101345",
+      "kind": "dowel",
+      "quantity": 4
+    },
+    {
+      "partNumber": "118331",
+      "kind": "cam-screw",
+      "quantity": 6
+    },
+    {
+      "partNumber": "103114",
+      "kind": "cam-lock",
+      "quantity": 2
+    },
+    {
+      "partNumber": "119081",
+      "kind": "cam-lock",
+      "quantity": 6
+    },
+    {
+      "partNumber": "114667",
+      "kind": "wood-screw",
+      "quantity": 1
+    },
+    {
+      "partNumber": "bracket",
+      "kind": "wall-bracket",
+      "quantity": 2
+    },
+    {
+      "partNumber": "109041",
+      "kind": "wood-screw",
+      "quantity": 2
+    },
+    {
+      "partNumber": "100823",
+      "kind": "washer",
+      "quantity": 4
+    },
+    {
+      "partNumber": "108001",
+      "kind": "connector",
+      "quantity": 2
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "sourcePages": [
+        8
+      ],
+      "text": "Push 4 large dowels into the ends of the top.",
+      "actions": [
+        {
+          "type": "place-panel",
+          "panelId": "top",
+          "pose": {
+            "position": {
+              "x": 15,
+              "y": 610,
+              "z": 335
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "101351",
+          "kind": "dowel",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "-x"
+          },
+          "from": "-x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "101351",
+          "kind": "dowel",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "+x"
+          },
+          "from": "+x"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "sourcePages": [
+        8
+      ],
+      "text": "Push 4 small dowels into the ends of the bottom.",
+      "actions": [
+        {
+          "type": "place-panel",
+          "panelId": "bottom",
+          "pose": {
+            "position": {
+              "x": 15,
+              "y": 610,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "101345",
+          "kind": "dowel",
+          "count": 2,
+          "target": {
+            "panelId": "bottom",
+            "face": "-x"
+          },
+          "from": "-x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "101345",
+          "kind": "dowel",
+          "count": 2,
+          "target": {
+            "panelId": "bottom",
+            "face": "+x"
+          },
+          "from": "+x"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "sourcePages": [
+        9
+      ],
+      "text": "Screw 6 cam screws into the inner faces of the sides.",
+      "actions": [
+        {
+          "type": "place-panel",
+          "panelId": "side-left",
+          "pose": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+z"
+        },
+        {
+          "type": "place-panel",
+          "panelId": "side-right",
+          "pose": {
+            "position": {
+              "x": 1385,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "118331",
+          "kind": "cam-screw",
+          "count": 2,
+          "target": {
+            "panelId": "side-left",
+            "face": "+x",
+            "offsetsMm": [
+              7.5,
+              342.5
+            ],
+            "acrossMm": 60
+          },
+          "from": "+x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "118331",
+          "kind": "cam-screw",
+          "count": 1,
+          "target": {
+            "panelId": "side-left",
+            "face": "+x",
+            "offsetsMm": [
+              342.5
+            ],
+            "acrossMm": 225
+          },
+          "from": "+x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "118331",
+          "kind": "cam-screw",
+          "count": 2,
+          "target": {
+            "panelId": "side-right",
+            "face": "-x",
+            "offsetsMm": [
+              7.5,
+              342.5
+            ],
+            "acrossMm": 60
+          },
+          "from": "-x"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "118331",
+          "kind": "cam-screw",
+          "count": 1,
+          "target": {
+            "panelId": "side-right",
+            "face": "-x",
+            "offsetsMm": [
+              342.5
+            ],
+            "acrossMm": 225
+          },
+          "from": "-x"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "sourcePages": [
+        10
+      ],
+      "text": "Fit the top and the bottom onto the left side and slide in the back panel.",
+      "actions": [
+        {
+          "type": "place-panel",
+          "panelId": "top",
+          "pose": {
+            "position": {
+              "x": 15,
+              "y": 10,
+              "z": 335
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+x"
+        },
+        {
+          "type": "place-panel",
+          "panelId": "bottom",
+          "pose": {
+            "position": {
+              "x": 15,
+              "y": 10,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+x"
+        },
+        {
+          "type": "place-panel",
+          "panelId": "back",
+          "pose": {
+            "position": {
+              "x": 8,
+              "y": 3,
+              "z": 8
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "-z"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "sourcePages": [
+        10
+      ],
+      "text": "Lower the right side onto the dowels.",
+      "actions": [
+        {
+          "type": "place-panel",
+          "panelId": "side-right",
+          "pose": {
+            "position": {
+              "x": 785,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "from": "+x"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "sourcePages": [
+        11
+      ],
+      "text": "Lock the bottom to the left side with 2 small cam locks.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "103114",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "bottom",
+            "face": "-z",
+            "offsetsMm": [
+              9
+            ],
+            "acrossMm": 50
+          },
+          "from": "-z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "103114",
+          "kind": "cam-lock",
+          "count": 1,
+          "target": {
+            "panelId": "bottom",
+            "face": "+z",
+            "offsetsMm": [
+              761
+            ],
+            "acrossMm": 50
+          },
+          "from": "+z"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "sourcePages": [
+        12
+      ],
+      "text": "Lock the top with 4 cam locks.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              9,
+              761
+            ],
+            "acrossMm": 50
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              9,
+              761
+            ],
+            "acrossMm": 215
+          },
+          "from": "+z"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "sourcePages": [
+        13
+      ],
+      "text": "Drive 1 screw through the back into the right side.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "114667",
+          "kind": "wood-screw",
+          "count": 1,
+          "target": {
+            "panelId": "back",
+            "face": "-y",
+            "offsetsMm": [
+              175
+            ],
+            "acrossMm": 776
+          },
+          "from": "-y"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "sourcePages": [
+        14
+      ],
+      "text": "Fix 2 wall brackets to the top with 2 screws and 4 washers.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "bracket",
+          "kind": "wall-bracket",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              80,
+              690
+            ],
+            "acrossMm": 20
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "100823",
+          "kind": "washer",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              80,
+              690
+            ],
+            "acrossMm": 20
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "109041",
+          "kind": "wood-screw",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              80,
+              690
+            ],
+            "acrossMm": 20
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "100823",
+          "kind": "washer",
+          "count": 2,
+          "target": {
+            "panelId": "top",
+            "face": "+z",
+            "offsetsMm": [
+              80,
+              690
+            ],
+            "acrossMm": 4
+          },
+          "from": "+z"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "sourcePages": [
+        15
+      ],
+      "text": "Screw 2 connectors into the top of the bookcase below.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "108001",
+          "kind": "connector",
+          "count": 2,
+          "target": {
+            "panelId": "bottom",
+            "face": "-z",
+            "offsetsMm": [
+              60,
+              710
+            ],
+            "acrossMm": 135
+          },
+          "from": "-z"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "sourcePages": [
+        15
+      ],
+      "text": "Set the extension on the bookcase and lock it with 2 cam locks.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "119081",
+          "kind": "cam-lock",
+          "count": 2,
+          "target": {
+            "panelId": "bottom",
+            "face": "+z",
+            "offsetsMm": [
+              60,
+              710
+            ],
+            "acrossMm": 135
+          },
+          "from": "+z"
+        }
+      ]
+    }
+  ],
+  "source": {
+    "pdf": "/pdfs/billy-height-extension-unit-white__AA-2287627-4-100.pdf"
+  }
+}
