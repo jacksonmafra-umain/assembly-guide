@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assembly Guide</title>
+  <meta name="description" content="IKEA assembly PDFs turned into an interactive 3D showroom and an animated, step-by-step assembly guide." />
+  <meta property="og:title" content="Assembly Guide" />
+  <meta property="og:description" content="Any assembly manual, rebuilt as an interactive 3D guide." />
+  <meta property="og:image" content="media/poster.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #121314; --panel: #1a1c1e; --line: #2c2f33; --ink: #f2f4f6; --body: #c9d0db; --dim: #8a929c; --accent: #ff9d3c;
+    }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) { --bg: #f1f1f0; --panel: #ffffff; --line: #dcdedf; --ink: #17191b; --body: #2f3438; --dim: #6b7075; --accent: #e07a12; }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--body); font: 17px/1.6 Inter, system-ui, sans-serif; }
+    a { color: var(--ink); }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .06em; }
+    .label { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0; }
+    .brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; }
+    .brand i { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); text-decoration: none; font-size: 15px; }
+    .pill:hover { border-color: var(--accent); }
+    .pill.primary { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+
+    .hero { padding: 48px 0 32px; }
+    h1 { margin: 0 0 16px; color: var(--ink); font-weight: 900; font-size: clamp(40px, 6.4vw, 76px); line-height: 1.02; letter-spacing: -0.03em; max-width: 15ch; }
+    h1 em { font-style: normal; color: var(--accent); }
+    .lede { max-width: 60ch; font-size: 19px; margin: 0 0 28px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .film { margin: 40px 0 0; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #000; }
+    .film video { display: block; width: 100%; height: auto; }
+    .caption { margin-top: 10px; color: var(--dim); font-size: 14px; }
+
+    section { padding: 64px 0; border-top: 1px solid var(--line); }
+    h2 { margin: 6px 0 24px; color: var(--ink); font-weight: 900; font-size: clamp(28px, 3.6vw, 40px); letter-spacing: -0.02em; line-height: 1.1; }
+    h3 { margin: 0 0 6px; color: var(--ink); font-size: 21px; font-weight: 700; }
+
+    .feature { display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: center; padding: 22px 0; }
+    .feature:nth-child(even) { grid-template-columns: 1fr 1.4fr; }
+    .feature:nth-child(even) img { order: 2; }
+    .feature img { width: 100%; border-radius: 12px; border: 1px solid var(--line); display: block; }
+    .feature p { margin: 0; }
+
+    .flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; counter-reset: s; }
+    .flow li { position: relative; padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); counter-increment: s; }
+    .flow li::before { content: counter(s); display: grid; place-items: center; width: 26px; height: 26px; margin-bottom: 10px; border-radius: 50%; color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); font: 12px 'JetBrains Mono', monospace; }
+    .flow b { display: block; color: var(--ink); margin-bottom: 4px; }
+    .flow span { font-size: 15px; }
+
+    .facts { display: flex; flex-wrap: wrap; gap: 40px 64px; margin-top: 8px; }
+    .fact b { display: block; color: var(--ink); font-size: 44px; font-weight: 900; letter-spacing: -0.02em; line-height: 1; }
+    .fact b.a { color: var(--accent); }
+    .fact span { color: var(--dim); font-size: 15px; }
+
+    pre { margin: 0; padding: 20px 22px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--ink); overflow-x: auto; font: 14px/1.7 'JetBrains Mono', ui-monospace, monospace; }
+    pre .c { color: var(--dim); }
+    .next { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 40px; padding: 0; margin: 0; list-style: none; }
+    .next li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .next b { color: var(--ink); }
+
+    footer { padding: 40px 0 56px; border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+    footer a { color: var(--dim); }
+
+    @media (max-width: 800px) {
+      .feature, .feature:nth-child(even) { grid-template-columns: 1fr; gap: 14px; }
+      .feature:nth-child(even) img { order: 0; }
+      .flow, .next { grid-template-columns: 1fr; }
+      header .pill { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="#"><i></i>Assembly Lab</a>
+      <a class="pill" href="https://github.com/jacksonmafra-umain/assembly-guide">View the repo ↗</a>
+    </header>
+
+    <div class="hero">
+      <p class="label">Internal demo · BILLY bookcase family</p>
+      <h1>Any assembly manual, <em>rebuilt in 3D</em></h1>
+      <p class="lede">Assembly Guide reads IKEA's wordless PDF manuals and turns them into an interactive 3D showroom and an animated, step-by-step assembly guide, down to every dowel, cam lock and nail.</p>
+      <div class="actions">
+        <a class="pill primary" href="#film">▶ Watch the 60 s demo</a>
+        <a class="pill" href="#how">How it works</a>
+      </div>
+      <figure class="film" id="film">
+        <video controls preload="metadata" playsinline poster="media/poster.jpg">
+          <source src="media/assembly-guide-demo.mp4" type="video/mp4" />
+        </video>
+      </figure>
+      <p class="caption">From the paper manual to the live app: Showroom, Assembly, part zoom, the corner combination and how it was made. Recorded from the real app.</p>
+    </div>
+
+    <section>
+      <p class="label">What's in the app</p>
+      <h2>One manual in, a guide you can turn around</h2>
+      <div class="feature">
+        <img src="media/showroom.jpg" alt="Showroom: product photos next to the revolving 3D bookcase" loading="lazy" />
+        <div><h3>Showroom</h3><p>Product photos next to the assembled 3D model. Drag to orbit, switch to a true isometric view, let it revolve, pick the accent colour or the light theme.</p></div>
+      </div>
+      <div class="feature">
+        <img src="media/assembly.jpg" alt="Assembly: panels flying into place for step 2" loading="lazy" />
+        <div><h3>Assembly, step by step</h3><p>The manual's steps play in order. Parts fly in and seat; the part that moves glows. Play, pause, step back and forth, or jump to any step.</p></div>
+      </div>
+      <div class="feature">
+        <img src="media/detail.jpg" alt="Part detail: a cam lock seating in slow motion" loading="lazy" />
+        <div><h3>Click a part, watch it fit</h3><p>Click any part in the list or in 3D. The camera comes in from the side the part arrives from and replays its fit in slow motion.</p></div>
+      </div>
+      <div class="feature">
+        <img src="media/combination.jpg" alt="The BILLY corner combination assembled" loading="lazy" />
+        <div><h3>Products made of products</h3><p>The BILLY corner combination is built from four manuals: two bookcase widths, the height extension and the corner hardware, joined in 72 steps.</p></div>
+      </div>
+      <div class="feature">
+        <img src="media/how.jpg" alt="How it was made: manual page, extracted JSON and the 3D step side by side" loading="lazy" />
+        <div><h3>How it was made</h3><p>Every step shows the manual page it came from, the data that was extracted and the 3D result, plus how many fields were corrected by hand.</p></div>
+      </div>
+    </section>
+
+    <section id="how">
+      <p class="label">How it works</p>
+      <h2>From a PDF to a moving guide</h2>
+      <ol class="flow">
+        <li><b>Assembly PDF</b><span>The wordless manual, exactly as it ships in the box.</span></li>
+        <li><b>Claude reads each page</b><span>One call lists every panel and part, then one call per step reads what goes where.</span></li>
+        <li><b>Product JSON</b><span>Panels, hardware and steps in millimetres, checked against the manual's parts list.</span></li>
+        <li><b>3D scene</b><span>Shared rules place each part exactly; an iso-glow stage built on three.js animates every step.</span></li>
+      </ol>
+      <div class="facts" style="margin-top:40px">
+        <div class="fact"><b>4</b><span>manuals read</span></div>
+        <div class="fact"><b>5</b><span>products in the showroom</span></div>
+        <div class="fact"><b class="a">72</b><span>steps in the corner combination</span></div>
+        <div class="fact"><b>89</b><span>unit tests</span></div>
+      </div>
+    </section>
+
+    <section>
+      <p class="label">What's next</p>
+      <h2>Where this could go</h2>
+      <ul class="next">
+        <li><b>Any product with a PDF manual.</b> Run the same pipeline on the next catalogue.</li>
+        <li><b>Support and returns.</b> Link a support case to the exact step and part.</li>
+        <li><b>In-store screens.</b> Let customers turn the product around before buying.</li>
+        <li><b>AR on the phone.</b> Place the step on the real panels on the floor.</li>
+      </ul>
+      <p class="caption">Ideas to explore, not features of this demo.</p>
+    </section>
+
+    <section>
+      <p class="label">Run it</p>
+      <h2>Try it locally</h2>
+<pre><span class="c"># Node 22+</span>
+git clone https://github.com/jacksonmafra-umain/assembly-guide
+cd assembly-guide
+npm install
+npm run dev          <span class="c"># http://localhost:5173</span>
+
+<span class="c"># re-extract a product from its PDF (needs Claude API credentials)</span>
+npm run extract -- billy-80</pre>
+    </section>
+
+    <footer>
+      <span>Internal demo. Manuals and product photos belong to IKEA and are used here for the demo only.</span>
+      <span>3D style based on <a href="https://iso-glow.vercel.app">iso-glow</a> · <a href="https://github.com/jacksonmafra-umain/assembly-guide">Repository</a></span>
+    </footer>
+  </div>
+</body>
+</html>
