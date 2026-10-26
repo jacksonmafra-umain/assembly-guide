@@ -22,8 +22,8 @@ const PARTS: Record<HardwareKind, () => THREE.BufferGeometry[]> = {
   'nail': () => [rod(1.5, -20, 0, 6), rod(4, 0, 0.8, 10)],
   // Ø5 pin, 10 in the panel and 6 out
   'shelf-pin': () => [rod(5, -10, 6, 10)],
-  // L-shaped bent plate, 40 × 40 × 2
-  'corner-fitting': () => [block(40, 2, 40, 0, -1, -20), block(2, 40, 40, -21, 19, -20)],
+  // flat galvanised strap, 110 × 20 × 2, with one end cranked up by a panel's thickness
+  'corner-fitting': () => [block(70, 20, 2, -20), block(2, 20, 16, 16), block(40, 20, 2, 36, 0, 16)],
   // flat plate with a raised tab
   'wall-bracket': () => [block(40, 20, 2, 0, 0, -2), block(40, 2, 18, 0, -9, 0)],
   // Ø8 × 40 connector bolt
