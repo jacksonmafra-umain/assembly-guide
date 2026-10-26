@@ -7,6 +7,7 @@ import { createStage } from './stage/stage';
 import type { AppContext } from './ui/context';
 import { renderShell } from './ui/shell';
 import { renderAssembly } from './ui/assembly';
+import { renderHow } from './ui/how';
 import { renderShowroom } from './ui/showroom';
 
 const data = loadData();
@@ -27,7 +28,7 @@ const ctx: AppContext = {
 const VIEWS: Record<Route['tab'], (host: HTMLElement, ctx: AppContext, r: Route) => () => void> = {
   showroom: renderShowroom,
   assembly: renderAssembly,
-  how: renderShowroom,
+  how: renderHow,
 };
 
 let cleanup = () => {};
@@ -46,4 +47,3 @@ addEventListener('keydown', (e) => {
   if (e.key.toLowerCase() === 'i') stage.setIsoView(!stage.isoView);
 });
 show();
-if (import.meta.env.DEV) Object.assign(window, { __stage: stage });

@@ -82,3 +82,20 @@ button { font: inherit; }
 .step-info .uses { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 4px 16px; }
 .step-info .uses li { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; border-bottom: 1px solid var(--line); }
 .step-info .uses small { color: var(--dim); }
+
+/* how it was made */
+.how { display: grid; gap: 16px; }
+.pipeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.pipeline li { display: grid; gap: 4px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--dim); font-size: 12px; }
+.pipeline li b { color: var(--ink); font-weight: 600; }
+.pipeline .n { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 10px; color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.how .ticks a { flex: 1; height: 6px; border-radius: 3px; background: var(--line); }
+.how .ticks a[aria-selected="true"] { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.pane { margin: 0; display: grid; grid-template-rows: auto 1fr; gap: 6px; min-height: 0; }
+.pane .page { height: 420px; overflow: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+.pane .page canvas { width: 100%; display: block; }
+.pane pre { margin: 0; height: 420px; overflow: auto; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); font-size: 11px; line-height: 1.45; }
+.pane .stage-slot { height: 420px; min-height: 0; }
+.facts pre { margin: 8px 0 0; white-space: pre-wrap; color: var(--ink); }
+@media (max-width: 1100px) { .trio, .pipeline { grid-template-columns: 1fr; } }
