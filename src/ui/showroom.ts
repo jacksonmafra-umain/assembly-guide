@@ -7,20 +7,22 @@ import { esc, type AppContext } from './context';
 const inches = (n: number) => `${n} in`;
 const cm = (n: number) => `${Math.round(n * 2.54)} cm`;
 
-/** Mounts the stage into `slot` and shows product `id` fully assembled. Returns a cleanup. */
-export function showAssembled(slot: HTMLElement, ctx: AppContext, id: string): () => void {
+/** Mounts the stage into `slot` and shows product `id` fully assembled. Returns the scene objects and a cleanup. */
+export function showAssembled(slot: HTMLElement, ctx: AppContext, id: string): { objects: Map<string, THREE.Object3D>; cleanup: () => void } {
   const r = ctx.data.resolved.get(id);
   if (!r) {
     const error = ctx.data.errors.get(id);
-    slot.innerHTML = `<div class="stage-empty"><div><p class="label">3D model</p>${error ? `This product's data has an error:<br><small>${esc(error)}</small>` : 'Not extracted yet.'}</div></div>`;
-    return () => {};
+    const message = ctx.data.products.has(id) ? esc(error ?? '')
+      : error ? `This product's data has an error:<br><small>${esc(error)}</small>` : 'Not extracted yet.';
+    slot.innerHTML = `<div class="stage-empty"><div><p class="label">3D model</p>${message}</div></div>`;
+    return { objects: new Map(), cleanup: () => {} };
   }
   slot.append(ctx.stageHost);
   const objects = buildScene(ctx.stage, r);
   applyState(objects, sceneStateAt(r, 0, 0), ctx.stage);
   ctx.stage.scene.updateMatrixWorld(true);
   ctx.stage.frame(new THREE.Box3().setFromObject(ctx.stage.root), false, true);
-  return () => disposeScene(objects);
+  return { objects, cleanup: () => disposeScene(objects) };
 }
 
 export function renderShowroom(host: HTMLElement, ctx: AppContext, route: Route): () => void {
@@ -60,5 +62,34 @@ export function renderShowroom(host: HTMLElement, ctx: AppContext, route: Route)
     host.querySelectorAll('.thumbs button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
   });
 
-  return showAssembled(host.querySelector('.stage-slot')!, ctx, entry.id);
+  const { objects, cleanup } = showAssembled(host.querySelector('.stage-slot')!, ctx, entry.id);
+  renderMadeOf(host.querySelector<HTMLElement>('.made-of')!, ctx, entry.id, objects);
+  return cleanup;
+}
+
+/** For a composite: its units with quantities; clicking one lights it up in 3D and offers its first step. */
+function renderMadeOf(panel: HTMLElement, ctx: AppContext, id: string, objects: Map<string, THREE.Object3D>): void {
+  const composite = ctx.data.composites.get(id);
+  const r = ctx.data.resolved.get(id);
+  if (!composite || !r) return;
+  const nameOf = (productId: string) => ctx.data.catalog.find((e) => e.id === productId)?.name ?? ctx.data.products.get(productId)?.name ?? productId;
+  const groups = new Map<string, string[]>();
+  for (const c of composite.components) groups.set(c.productId, [...(groups.get(c.productId) ?? []), c.instanceId]);
+  panel.hidden = false;
+  panel.innerHTML = `<h2>Made of</h2><p class="label">Click a unit to find it in 3D</p><ul>${[...groups].map(([productId, instances]) =>
+    `<li><button data-instances="${instances.join(' ')}" aria-pressed="false"><span>${esc(nameOf(productId))}</span><span>× ${instances.length}</span></button></li>`).join('')}</ul>
+    <p><a class="button" data-first hidden>Assemble this unit →</a></p>`;
+  const first = panel.querySelector<HTMLAnchorElement>('[data-first]')!;
+  panel.addEventListener('click', (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-instances]');
+    if (!b) return;
+    const on = b.getAttribute('aria-pressed') !== 'true';
+    panel.querySelectorAll('button[data-instances]').forEach((x) => x.setAttribute('aria-pressed', String(x === b && on)));
+    const instances = new Set(on ? b.dataset.instances!.split(' ') : []);
+    for (const [key, obj] of objects) ctx.stage.setLive(obj, instances.has(key.split('/')[0]!));
+    const step = r.steps.find((s) => s.instanceId && instances.has(s.instanceId));
+    first.hidden = !step;
+    if (step) first.href = `#/assembly/${id}/${step.index}`;
+    b.blur();
+  });
 }

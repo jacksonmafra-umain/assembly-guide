@@ -37,8 +37,8 @@ export function renderShell(root: HTMLElement, data: AppData): Shell {
       list.innerHTML = data.catalog.map((e) => {
         const error = data.errors.get(e.id);
         const ok = available(e.id);
-        const note = ok ? (e.kind === 'composite' ? 'combination' : 'unit') : error ? 'data error' : 'not extracted yet';
-        return `<li><a href="${formatRoute({ ...r, productId: e.id, step: 1 })}" class="${ok ? '' : 'unavailable'}"
+        const note = ok ? (e.kind === 'composite' ? 'combination' : 'unit') : data.products.has(e.id) ? 'shown in the combination' : error ? 'data error' : 'not extracted yet';
+        return `<li><a href="${formatRoute({ ...r, productId: e.id, step: 1 })}" class="${ok || data.products.has(e.id) ? '' : 'unavailable'}"
           ${e.id === r.productId ? 'aria-current="page"' : ''} ${error ? `title="${esc(error)}"` : ''}>
           ${esc(e.name)}<small>${note}</small></a></li>`;
       }).join('');
