@@ -23,7 +23,10 @@ export type Stage = {
   addMesh(m: THREE.Mesh, parent?: THREE.Object3D): void;
   finalizeLines(): void;
   setLive(obj: THREE.Object3D, on: boolean): void;
-  frame(box: THREE.Box3, animate?: boolean): void;
+  /** Fits the camera to `box` (world units); `ground` also moves the soft shadow under it. */
+  frame(box: THREE.Box3, animate?: boolean, ground?: boolean, dir?: THREE.Vector3): void;
+  /** The visible product mesh under a screen point, if any. */
+  pick(clientX: number, clientY: number): THREE.Object3D | null;
   setIsoView(on: boolean): void;
   setRevolve(on: boolean): void;
   setTheme(t: ThemeName): void;
@@ -59,7 +62,7 @@ export function createStage(host: HTMLElement): Stage {
   let orthoH = 10;
   let camera: THREE.PerspectiveCamera | THREE.OrthographicCamera = persp;
   const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true; controls.maxPolarAngle = Math.PI * 0.495; controls.minDistance = 1; controls.maxDistance = 200;
+  controls.enableDamping = true; controls.maxPolarAngle = Math.PI * 0.495; controls.minDistance = 0.05; controls.maxDistance = 200;
 
   const hemi = new THREE.HemisphereLight(0xdde4ff, 0x080808, 0.7); scene.add(hemi);
   const ambient = new THREE.AmbientLight(0xffffff, 0); scene.add(ambient);
@@ -147,20 +150,35 @@ export function createStage(host: HTMLElement): Stage {
 
   // ── view ──
   let target = new THREE.Vector3(), fitDist = 10;
-  let camAnim: { from: THREE.Vector3; fromT: THREE.Vector3; to: THREE.Vector3; toT: THREE.Vector3; t: number; zoom0?: number } | null = null;
+  let camAnim: { from: THREE.Vector3; fromT: THREE.Vector3; to: THREE.Vector3; toT: THREE.Vector3; t: number; start?: number; zoom0?: number } | null = null;
   const fovK = () => 2 * Math.tan(THREE.MathUtils.degToRad(persp.fov / 2));
   function orthoFrustum() { const a = w / h; ortho.top = orthoH / 2; ortho.bottom = -orthoH / 2; ortho.left = -orthoH * a / 2; ortho.right = orthoH * a / 2; ortho.updateProjectionMatrix(); }
 
-  function frame(box: THREE.Box3, animate = true) {
+  function frame(box: THREE.Box3, animate = true, ground = false, dir: THREE.Vector3 = ISO_DIR) {
     if (box.isEmpty()) return;
     target = box.getCenter(new THREE.Vector3());
     const r = box.getBoundingSphere(new THREE.Sphere()).radius;
     fitDist = (r * 2.3) / fovK() * Math.max(1, 1.2 / persp.aspect);
     const s = box.getSize(new THREE.Vector3());
-    shadow.visible = true; shadow.scale.set(s.x * 1.3 + 0.4, s.z * 1.3 + 0.4, 1); shadow.position.set(target.x, box.min.y - 0.005, target.z);
-    const to = target.clone().addScaledVector(ISO_DIR, fitDist);
+    if (ground) {
+      shadow.visible = true;
+      shadow.scale.set(s.x * 1.3 + 0.4, s.z * 1.3 + 0.4, 1);
+      shadow.position.set(target.x, box.min.y - 0.005, target.z);
+    }
+    const to = target.clone().addScaledVector(dir, fitDist);
     if (animate) camAnim = { from: camera.position.clone(), fromT: controls.target.clone(), to, toT: target.clone(), t: 0, zoom0: camera === ortho ? ortho.zoom : undefined };
     else { camAnim = null; controls.target.copy(target); camera.position.copy(to); if (camera === ortho) { orthoH = fitDist * fovK(); ortho.zoom = 1; orthoFrustum(); } }
+  }
+
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  const shown = (o: THREE.Object3D | null): boolean => !o || (o.visible && shown(o.parent));
+  function pick(clientX: number, clientY: number) {
+    const rect = renderer.domElement.getBoundingClientRect();
+    ndc.set(((clientX - rect.left) / rect.width) * 2 - 1, -((clientY - rect.top) / rect.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObject(root, true)
+      .find((h) => h.object instanceof THREE.Mesh && !(h.object instanceof LineSegments2) && !h.object.userData.outline && shown(h.object));
+    return hit?.object ?? null;
   }
 
   let isoView = false;
@@ -233,8 +251,8 @@ export function createStage(host: HTMLElement): Stage {
   function loop(now: number) {
     const dt = Math.min(0.05, (now - last) / 1000); last = now;
     if (camAnim) {
-      if (camAnim.t === 0) controls.enableDamping = false;
-      camAnim.t = Math.min(1, camAnim.t + dt / 0.8); const k = ease(camAnim.t);
+      if (camAnim.start === undefined) { camAnim.start = now; controls.enableDamping = false; }
+      camAnim.t = Math.min(1, (now - camAnim.start) / 800); const k = ease(camAnim.t);
       controls.target.lerpVectors(camAnim.fromT, camAnim.toT, k);
       camera.position.lerpVectors(camAnim.from, camAnim.to, k);
       if (camera === ortho && camAnim.zoom0 !== undefined) { ortho.zoom = THREE.MathUtils.lerp(camAnim.zoom0, 1, k); orthoH = fitDist * fovK(); orthoFrustum(); }
@@ -265,7 +283,7 @@ export function createStage(host: HTMLElement): Stage {
 
 
   const stage: Stage = {
-    scene, root, addMesh, finalizeLines, setLive, frame, setIsoView, setRevolve, setTheme, setAccent,
+    scene, root, addMesh, finalizeLines, setLive, frame, pick, setIsoView, setRevolve, setTheme, setAccent,
     get theme() { return theme; }, get accent() { return accentName; }, get isoView() { return isoView; }, get revolve() { return revolve; },
     onTick(fn) { ticks.add(fn); return () => ticks.delete(fn); },
     onThemeChange(fn) { themeHooks.add(fn); return () => themeHooks.delete(fn); },
