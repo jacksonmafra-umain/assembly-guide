@@ -30,20 +30,32 @@ async function renderPdfPage(canvas: HTMLCanvasElement, url: string, page: numbe
 
 export function renderHow(host: HTMLElement, ctx: AppContext, route: Route): () => void {
   const entry = ctx.data.catalog.find((e) => e.id === route.productId);
-  const product = ctx.data.products.get(route.productId);
   const r = ctx.data.resolved.get(route.productId);
-  const counts = (corrections as Record<string, CorrectionCounts>)[route.productId];
+  const composite = ctx.data.composites.get(route.productId);
+  // a combination's step comes from the manual of the unit it builds
+  const stepIndex = Math.min(route.step, r?.steps.length ?? 1);
+  const instance = composite?.components.find((c) => c.instanceId === r?.steps[stepIndex - 1]?.instanceId);
+  const sourceId = instance?.productId ?? route.productId;
+  const product = ctx.data.products.get(sourceId);
+  const pdf = product?.source.pdf || entry?.pdf;
+  const all = corrections as Record<string, CorrectionCounts>;
+  const counts = composite
+    ? [...new Set(composite.components.map((c) => c.productId))].map((id) => all[id]).filter((c): c is CorrectionCounts => !!c)
+      .reduce((a, c) => ({ changed: a.changed + c.changed, added: a.added + c.added, removed: a.removed + c.removed, total: a.total + c.total }), { changed: 0, added: 0, removed: 0, total: 0 })
+    : all[route.productId];
 
   const strip = PIPELINE.map(([t, d], i) =>
     `<li><span class="n">${i + 1}</span><b>${t}</b><span>${d}</span></li>`).join('');
-  if (!entry || !product || !r || !entry.pdf) {
+  if (!entry || !product || !r || !pdf) {
     host.innerHTML = `<section class="how"><ol class="pipeline">${strip}</ol>
       <div class="panel"><h2>${esc(entry?.name ?? 'This product')}</h2><p>Not extracted yet.</p></div></section>`;
     return () => {};
   }
 
-  const stepIndex = Math.min(route.step, r.steps.length);
-  const step = product.steps[stepIndex - 1]!;
+  const resolvedStep = r.steps[stepIndex - 1]!;
+  const step = composite
+    ? product.steps.find((s) => resolvedStep.text.endsWith(` · ${s.text}`)) ?? product.steps[0]!
+    : product.steps[stepIndex - 1]!;
   const page = step.sourcePages[0] ?? 1;
   host.innerHTML = `
     <section class="how">
@@ -54,8 +66,8 @@ export function renderHow(host: HTMLElement, ctx: AppContext, route: Route): () 
           `<a role="tab" href="${formatRoute({ ...route, step: s.index })}" aria-selected="${s.index === stepIndex}" title="Step ${s.index}"></a>`).join('')}</div>
       </div>
       <div class="trio">
-        <figure class="pane"><figcaption class="label">Manual · page ${page}</figcaption><div class="page"><canvas aria-label="Manual page ${page}"></canvas></div></figure>
-        <figure class="pane"><figcaption class="label">Extracted JSON · step ${stepIndex}</figcaption><pre>${esc(JSON.stringify(step, null, 2))}</pre></figure>
+        <figure class="pane"><figcaption class="label">${composite ? `${esc(product.name)} manual` : 'Manual'} · page ${page}</figcaption><div class="page"><canvas aria-label="Manual page ${page}"></canvas></div></figure>
+        <figure class="pane"><figcaption class="label">Extracted JSON · ${composite ? `${esc(product.name)} step ${step.index}` : `step ${stepIndex}`}</figcaption><pre>${esc(JSON.stringify(step, null, 2))}</pre></figure>
         <figure class="pane"><figcaption class="label">3D · step ${stepIndex}</figcaption><div class="stage-slot"></div></figure>
       </div>
       <div class="facts">
@@ -67,13 +79,13 @@ export function renderHow(host: HTMLElement, ctx: AppContext, route: Route): () 
         </div>
         <div class="panel">
           <h2>Run it</h2>
-          <pre>npm run extract -- ${esc(entry.id)}\nnpm run validate -- ${esc(entry.id)}\nnpm run corrections</pre>
+          <pre>npm run extract -- ${esc(sourceId)}\nnpm run validate -- ${esc(sourceId)}\nnpm run corrections</pre>
         </div>
       </div>
     </section>`;
 
   const canvas = host.querySelector('canvas')!;
-  renderPdfPage(canvas, entry.pdf, page).catch((e) => { canvas.replaceWith(Object.assign(document.createElement('p'), { textContent: `Could not render the page: ${e}` })); });
+  renderPdfPage(canvas, pdf, page).catch((e) => { canvas.replaceWith(Object.assign(document.createElement('p'), { textContent: `Could not render the page: ${e}` })); });
 
   host.querySelector('.stage-slot')!.append(ctx.stageHost);
   const objects = buildScene(ctx.stage, r);
