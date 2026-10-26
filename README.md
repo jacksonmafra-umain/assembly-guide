@@ -3,6 +3,8 @@
 An internal demo that turns flat IKEA assembly PDFs into an interactive 3D showroom and an animated,
 step-by-step assembly guide, down to every dowel, cam lock and nail.
 
+**Demo page and 60 s film:** https://jacksonmafra-umain.github.io/assembly-guide/
+
 It covers the BILLY bookcase family and the BILLY corner combination with extension units, built from four
 wordless manuals. The 3D look comes from the [iso-glow](https://iso-glow.vercel.app) skill: dark hairline
 drawing, one accent colour on whatever is moving.
