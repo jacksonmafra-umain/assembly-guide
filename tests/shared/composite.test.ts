@@ -64,3 +64,13 @@ test('steps follow the sequence, each tagged with its instance and numbered from
   expect(r.steps.map((s) => s.instanceId)).toEqual(['left', 'right', 'turned', 'join']);
   expect(r.steps.map((s) => s.index)).toEqual([1, 2, 3, 4]);
 });
+
+test('a sequence entry "<instance>@<n>" takes one step of an instance, so steps can interleave', () => {
+  const p = products();
+  const joiner = p.get('joiner')!;
+  joiner.steps.push({ ...joiner.steps[0]!, index: 2, actions: [joiner.steps[0]!.actions[1]!] });
+  joiner.steps[0]!.actions = [joiner.steps[0]!.actions[0]!];
+  joiner.hardware[0]!.quantity = 2;
+  const r = resolveComposite({ ...combo, sequence: ['left', 'join@1', 'right', 'turned', 'join@2'] }, p);
+  expect(r.steps.map((s) => s.instanceId)).toEqual(['left', 'join', 'right', 'turned', 'join']);
+});

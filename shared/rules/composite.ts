@@ -46,7 +46,8 @@ function placeDir(d: Dir, at: Pose): Dir {
 /**
  * Merges the products of a composite into one product in the composite frame, then resolves it.
  * Panel ids become "<instance>/<panel>"; a joining product's "<role>:<panel>" references point at the
- * instance its component maps that role to. Steps follow `sequence`, each tagged with its instance.
+ * instance its component maps that role to. Steps follow `sequence`, each tagged with its instance; an entry
+ * "<instance>@<n>" takes only step n of that instance, so a joining product's steps can sit between units.
  */
 export function resolveComposite(c: Composite, products: Map<string, Product>): ResolvedProduct {
   const merged: Product = {
@@ -54,7 +55,9 @@ export function resolveComposite(c: Composite, products: Map<string, Product>): 
     materials: { panelThickness: 15, backThickness: 3 }, panels: [], hardware: [], steps: [], source: { pdf: '' },
   };
   const owner: string[] = [];
-  for (const instanceId of c.sequence) {
+  const seen = new Set<string>();
+  for (const entry of c.sequence) {
+    const [instanceId, only] = entry.split('@') as [string, string | undefined];
     const comp = c.components.find((x) => x.instanceId === instanceId);
     const p = comp && products.get(comp.productId);
     if (!comp || !p) throw new Error(`${c.id}: no product for instance "${instanceId}"`);
@@ -67,12 +70,15 @@ export function resolveComposite(c: Composite, products: Map<string, Product>): 
       return `${host}/${panel}`;
     };
     merged.materials = p.materials;
-    merged.panels.push(...p.panels.map((x) => ({ ...x, id: `${instanceId}/${x.id}` })));
-    for (const h of p.hardware) {
-      const line = merged.hardware.find((x) => x.partNumber === h.partNumber);
-      if (line) line.quantity += h.quantity; else merged.hardware.push({ ...h });
+    if (!seen.has(instanceId)) {
+      seen.add(instanceId);
+      merged.panels.push(...p.panels.map((x) => ({ ...x, id: `${instanceId}/${x.id}` })));
+      for (const h of p.hardware) {
+        const line = merged.hardware.find((x) => x.partNumber === h.partNumber);
+        if (line) line.quantity += h.quantity; else merged.hardware.push({ ...h });
+      }
     }
-    for (const step of p.steps) {
+    for (const step of only ? p.steps.filter((s) => s.index === Number(only)) : p.steps) {
       const actions = step.actions.map((a): Action => {
         if (a.type === 'place-panel') return { ...a, panelId: panelRef(a.panelId), pose: placePose(a.pose, at), from: placeDir(a.from, at) };
         if (a.type === 'insert-hardware') {
