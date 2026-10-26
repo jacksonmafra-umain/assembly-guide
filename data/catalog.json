@@ -1,0 +1,52 @@
+[
+  {
+    "id": "billy-corner-combo",
+    "name": "BILLY corner combination with extension units",
+    "articleNumbers": ["995.815.04"],
+    "kind": "composite",
+    "dimensionsIn": { "w": 53.5, "d": 11, "h": 93.25 },
+    "photos": ["/photos/billy-corner-combo/01.jpg", "/photos/billy-corner-combo/02.jpg", "/photos/billy-corner-combo/03.jpg", "/photos/billy-corner-combo/04.jpg", "/photos/billy-corner-combo/05.jpg"],
+    "pdf": null,
+    "productUrl": "https://www.ikea.com/us/en/p/billy-bookcase-corner-comb-w-ext-units-white-s99581504/"
+  },
+  {
+    "id": "billy-80",
+    "name": "BILLY bookcase 80 cm",
+    "articleNumbers": ["205.220.46"],
+    "kind": "unit",
+    "dimensionsIn": { "w": 31.5, "d": 11, "h": 79.5 },
+    "photos": ["/photos/billy-80/01.jpg", "/photos/billy-80/02.jpg", "/photos/billy-80/03.jpg", "/photos/billy-80/04.jpg", "/photos/billy-80/05.jpg"],
+    "pdf": "/pdfs/billy-bookcase-white__AA-2289108-3-100.pdf",
+    "productUrl": "https://www.ikea.com/us/en/p/billy-bookcase-white-20522046/"
+  },
+  {
+    "id": "billy-40",
+    "name": "BILLY bookcase 40 cm",
+    "articleNumbers": ["505.220.40"],
+    "kind": "unit",
+    "dimensionsIn": { "w": 15.75, "d": 11, "h": 79.5 },
+    "photos": ["/photos/billy-40/01.jpg", "/photos/billy-40/02.jpg", "/photos/billy-40/03.jpg", "/photos/billy-40/04.jpg", "/photos/billy-40/05.jpg"],
+    "pdf": "/pdfs/billy-bookcase-white__AA-2287624-3-100.pdf",
+    "productUrl": "https://www.ikea.com/us/en/p/billy-bookcase-white-50522040/"
+  },
+  {
+    "id": "billy-ext",
+    "name": "BILLY height extension unit",
+    "articleNumbers": ["805.252.78", "405.252.75"],
+    "kind": "unit",
+    "dimensionsIn": { "w": 31, "d": 11, "h": 14 },
+    "photos": ["/photos/billy-ext/01.jpg", "/photos/billy-ext/02.jpg", "/photos/billy-ext/03.jpg"],
+    "pdf": "/pdfs/billy-height-extension-unit-white__AA-2287627-4-100.pdf",
+    "productUrl": "https://www.ikea.com/us/en/p/billy-height-extension-unit-white-80525278/"
+  },
+  {
+    "id": "billy-corner",
+    "name": "BILLY corner hardware",
+    "articleNumbers": ["401.041.09"],
+    "kind": "unit",
+    "dimensionsIn": null,
+    "photos": ["/photos/billy-corner/01.jpg", "/photos/billy-corner/02.jpg"],
+    "pdf": "/pdfs/billy-corner-hardware-galvanized__AA-197501-5-2.pdf",
+    "productUrl": "https://www.ikea.com/us/en/p/billy-corner-hardware-galvanized-40104109/"
+  }
+]
