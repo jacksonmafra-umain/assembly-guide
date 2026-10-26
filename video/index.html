@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #121314; }
+      #root { position: relative; width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="60" data-width="1920" data-height="1080">
+      <div id="s01" data-composition-id="s01" data-composition-src="compositions/s01.html" data-start="0" data-duration="4" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="s02" data-composition-id="s02" data-composition-src="compositions/s02.html" data-start="4" data-duration="4.5" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="s03" data-composition-id="s03" data-composition-src="compositions/s03.html" data-start="8.5" data-duration="4" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="s04" data-composition-id="s04" data-composition-src="compositions/s04.html" data-start="12.5" data-duration="4" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="s05" data-composition-id="s05" data-composition-src="compositions/s05.html" data-start="16.5" data-duration="12.5" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="s06" data-composition-id="s06" data-composition-src="compositions/s06.html" data-start="29" data-duration="6.5" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="s07" data-composition-id="s07" data-composition-src="compositions/s07.html" data-start="35.5" data-duration="7.5" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="s08" data-composition-id="s08" data-composition-src="compositions/s08.html" data-start="43" data-duration="4.5" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="s09" data-composition-id="s09" data-composition-src="compositions/s09.html" data-start="47.5" data-duration="8.5" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="s10" data-composition-id="s10" data-composition-src="compositions/s10.html" data-start="56" data-duration="4" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <audio id="sx-cut1" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="3.95" data-duration="0.57" data-media-start="0" data-volume="0.5" data-track-index="2"></audio>
+      <audio id="sx-cut2" class="clip" src="assets/sfx/whoosh.mp3" data-start="12.45" data-duration="0.57" data-media-start="0" data-volume="0.45" data-track-index="3"></audio>
+      <audio id="sx-click" class="clip" src="assets/sfx/click.mp3" data-start="29.12" data-duration="0.36" data-media-start="0" data-volume="0.8" data-track-index="2"></audio>
+      <audio id="sx-seat" class="clip" src="assets/sfx/click-soft.mp3" data-start="30.6" data-duration="0.36" data-media-start="0" data-volume="0.6" data-track-index="3"></audio>
+      <audio id="sx-cut3" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="35.45" data-duration="0.57" data-media-start="0" data-volume="0.45" data-track-index="2"></audio>
+      <audio id="sx-cut4" class="clip" src="assets/sfx/whoosh.mp3" data-start="47.45" data-duration="0.57" data-media-start="0" data-volume="0.45" data-track-index="3"></audio>
+      <audio id="sx-rise" class="clip" src="assets/sfx/riser.mp3" data-start="53.7" data-duration="3.0" data-media-start="7.0" data-volume="0.5" data-track-index="2"></audio>
+      <audio id="sx-hit" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="56.71" data-duration="2.1" data-media-start="0" data-volume="0.7" data-track-index="3"></audio>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

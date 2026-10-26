@@ -1,0 +1,30 @@
+<template>
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #ffffff; font-family: Inter, sans-serif; }
+.t { position: absolute; color: #111111; font-weight: 900; letter-spacing: -0.02em; line-height: 1.02; margin: 0; }
+.t span { display: inline-block; }
+.m { position: absolute; font-family: 'JetBrains Mono', monospace; font-weight: 500; letter-spacing: 0.06em; color: #c9d0db; margin: 0; }
+.a { color: #ff9d3c; }
+  </style>
+  <div id="root" data-composition-id="s02" data-width="1920" data-height="1080" data-duration="4.5">
+    <img id="s02-p7" class="clip" src="assets/manual/billy-80-p07.png" data-start="0.00" data-duration="0.35" style="position:absolute; left: 1100px; top: 40px; width: 707px; height: 1000px;" alt="" />
+    <img id="s02-p8" class="clip" src="assets/manual/billy-80-p08.png" data-start="0.35" data-duration="0.35" style="position:absolute; left: 1100px; top: 40px; width: 707px; height: 1000px;" alt="" />
+    <img id="s02-p10" class="clip" src="assets/manual/billy-80-p10.png" data-start="0.70" data-duration="0.35" style="position:absolute; left: 1100px; top: 40px; width: 707px; height: 1000px;" alt="" />
+    <img id="s02-p11" class="clip" src="assets/manual/billy-80-p11.png" data-start="1.05" data-duration="0.35" style="position:absolute; left: 1100px; top: 40px; width: 707px; height: 1000px;" alt="" />
+    <img id="s02-p12" class="clip" src="assets/manual/billy-80-p12.png" data-start="1.40" data-duration="0.35" style="position:absolute; left: 1100px; top: 40px; width: 707px; height: 1000px;" alt="" />
+    <img id="s02-p13" class="clip" src="assets/manual/billy-80-p13.png" data-start="1.75" data-duration="0.35" style="position:absolute; left: 1100px; top: 40px; width: 707px; height: 1000px;" alt="" />
+    <img id="s02-p14" class="clip" src="assets/manual/billy-80-p14.png" data-start="2.10" data-duration="0.35" style="position:absolute; left: 1100px; top: 40px; width: 707px; height: 1000px;" alt="" />
+    <img id="s02-p15" class="clip" src="assets/manual/billy-80-p15.png" data-start="2.45" data-duration="0.35" style="position:absolute; left: 1100px; top: 40px; width: 707px; height: 1000px;" alt="" />
+    <img id="s02-p16" class="clip" src="assets/manual/billy-80-p16.png" data-start="2.80" data-duration="1.70" style="position:absolute; left: 1100px; top: 40px; width: 707px; height: 1000px;" alt="" />
+    <h1 id="s02-t1" class="t clip" data-start="0" data-duration="4.5" style="left:120px; top:400px; font-size:96px;">Every step is</h1>
+    <h1 id="s02-t2" class="t clip" data-start="0" data-duration="4.5" style="left:120px; top:505px; font-size:96px;">a drawing to decode</h1>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s02-t1", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "expo.out" }, 0.5);
+    tl.fromTo("#s02-t2", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "expo.out" }, 0.9);
+
+    window.__timelines["s02"] = tl;
+  </script>
+</template>

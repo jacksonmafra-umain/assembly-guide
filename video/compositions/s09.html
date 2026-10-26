@@ -1,0 +1,34 @@
+<template>
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #121314; font-family: Inter, sans-serif; }
+.t { position: absolute; color: #ffffff; font-weight: 900; letter-spacing: -0.02em; line-height: 1.02; margin: 0; }
+.t span { display: inline-block; }
+.m { position: absolute; font-family: 'JetBrains Mono', monospace; font-weight: 500; letter-spacing: 0.06em; color: #c9d0db; margin: 0; }
+.a { color: #ff9d3c; }
+  </style>
+  <div id="root" data-composition-id="s09" data-width="1920" data-height="1080" data-duration="8.5">
+    <div style="position:absolute; left:1000px; top:240px; width:860px; height:600px; border-radius:16px; overflow:hidden; box-shadow:0 0 0 1px #2c2f33;">
+      <video id="s09-v" class="clip" src="assets/clips/showroom-combo.mp4" data-start="0" data-duration="8.5" data-playback-rate="0.8235" muted playsinline style="position:absolute; left:-955px; top:-57px; width:1834px; height:1031px;"></video>
+    </div>
+    <h1 id="s09-claim1" class="t clip" data-start="0" data-duration="2.2" style="left:120px; top:380px; font-size:110px;">Any manual.</h1>
+    <h1 id="s09-claim2" class="t clip" data-start="0" data-duration="2.2" style="left:120px; top:505px; font-size:110px;"><span class="a">Any product.</span></h1>
+    <p id="s09-label" class="m clip" data-start="2.2" data-duration="6.3" style="left:124px; top:420px; font-size:30px;">WHAT'S NEXT</p>
+    <h2 id="s09-n0" class="t clip" data-start="2.2" data-duration="1.5" style="left:120px; top:500px; font-size:80px;">Support &amp; returns</h2>
+    <h2 id="s09-n1" class="t clip" data-start="3.7" data-duration="1.5" style="left:120px; top:500px; font-size:80px;">In-store screens</h2>
+    <h2 id="s09-n2" class="t clip" data-start="5.2" data-duration="1.6" style="left:120px; top:500px; font-size:80px;">AR on your phone</h2>
+    <h2 id="s09-n3" class="t clip" data-start="6.8" data-duration="1.7" style="left:120px; top:500px; font-size:80px;">Is this the right part?</h2>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s09-claim1", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "expo.out" }, 0.2);
+    tl.fromTo("#s09-claim2", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "expo.out" }, 0.7);
+    tl.fromTo("#s09-label", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "expo.out" }, 2.2);
+    tl.fromTo("#s09-n0", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "expo.out" }, 2.25);
+    tl.fromTo("#s09-n1", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "expo.out" }, 3.75);
+    tl.fromTo("#s09-n2", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "expo.out" }, 5.25);
+    tl.fromTo("#s09-n3", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "expo.out" }, 6.85);
+
+    window.__timelines["s09"] = tl;
+  </script>
+</template>

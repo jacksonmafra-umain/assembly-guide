@@ -1,0 +1,26 @@
+<template>
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #ffffff; font-family: Inter, sans-serif; }
+.t { position: absolute; color: #ffffff; font-weight: 900; letter-spacing: -0.02em; line-height: 1.02; margin: 0; }
+.t span { display: inline-block; }
+.m { position: absolute; font-family: 'JetBrains Mono', monospace; font-weight: 500; letter-spacing: 0.06em; color: #c9d0db; margin: 0; }
+.a { color: #ff9d3c; }
+  </style>
+  <div id="root" data-composition-id="s03" data-width="1920" data-height="1080" data-duration="4">
+    <img id="s03-page" class="clip" src="assets/manual/billy-80-p16.png" data-start="0" data-duration="4" style="position:absolute; left: 1100px; top: 40px; width: 707px; height: 1000px;" alt="" />
+    <div id="s03-flood" class="clip" data-start="0" data-duration="4" style="position:absolute; inset:0; background:#121314;"></div>
+    <div id="s03-dot" class="clip" data-start="0" data-duration="4" style="position:absolute; left:560px; top:512px; width:44px; height:44px; border-radius:50%; background:#ff9d3c;"></div>
+    <h1 id="s03-name" class="t clip" data-start="0" data-duration="4" style="left:640px; top:470px; font-size:120px;">Assembly Guide</h1>
+    <p id="s03-sub" class="m clip" data-start="0" data-duration="4" style="left:644px; top:620px; font-size:34px;">The manual, rebuilt in 3D</p>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s03-flood", { clipPath: "circle(0% at 1440px 540px)" }, { clipPath: "circle(150% at 1440px 540px)", duration: 0.9, ease: "power2.inOut" }, 0.2);
+    tl.fromTo("#s03-dot", { scale: 0 }, { scale: 1, duration: 0.6, ease: "expo.out" }, 1.0);
+    tl.fromTo("#s03-name", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.8, ease: "expo.out" }, 1.15);
+    tl.fromTo("#s03-sub", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "expo.out" }, 1.7);
+
+    window.__timelines["s03"] = tl;
+  </script>
+</template>

@@ -1,0 +1,25 @@
+<template>
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #ffffff; font-family: Inter, sans-serif; }
+.t { position: absolute; color: #111111; font-weight: 900; letter-spacing: -0.02em; line-height: 1.02; margin: 0; }
+.t span { display: inline-block; }
+.m { position: absolute; font-family: 'JetBrains Mono', monospace; font-weight: 500; letter-spacing: 0.06em; color: #c9d0db; margin: 0; }
+.a { color: #ff9d3c; }
+  </style>
+  <div id="root" data-composition-id="s01" data-width="1920" data-height="1080" data-duration="4">
+    <div id="s01-push" style="position:absolute; inset:0;">
+      <img id="s01-page" class="clip" src="assets/manual/billy-80-p09.png" data-start="0" data-duration="4" style="position:absolute; left: 1100px; top: 40px; width: 707px; height: 1000px;" alt="" />
+    </div>
+    <h1 id="s01-t1" class="t clip" data-start="0" data-duration="4" style="left:120px; top:380px; font-size:120px;">16 pages.</h1>
+    <h1 id="s01-t2" class="t clip" data-start="0" data-duration="4" style="left:120px; top:510px; font-size:120px;">Zero words.</h1>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s01-t1", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "expo.out" }, 1.0);
+    tl.fromTo("#s01-t2", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "expo.out" }, 1.6);
+    tl.fromTo("#s01-push", { scale: 1, transformOrigin: "1533px 696px" }, { scale: 1.14, duration: 4, ease: "power2.inOut" }, 0);
+
+    window.__timelines["s01"] = tl;
+  </script>
+</template>

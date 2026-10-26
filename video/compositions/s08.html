@@ -1,0 +1,27 @@
+<template>
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #121314; font-family: Inter, sans-serif; }
+.t { position: absolute; color: #ffffff; font-weight: 900; letter-spacing: -0.02em; line-height: 1.02; margin: 0; }
+.t span { display: inline-block; }
+.m { position: absolute; font-family: 'JetBrains Mono', monospace; font-weight: 500; letter-spacing: 0.06em; color: #c9d0db; margin: 0; }
+.a { color: #ff9d3c; }
+
+.frame { position: absolute; left: 192px; top: 40px; width: 1536px; height: 864px; border-radius: 16px; overflow: hidden; box-shadow: 0 0 0 1px #2c2f33; }
+.push { position: absolute; inset: 0; transform-origin: 50% 50%; }
+.push video { position: absolute; left: 0; top: 0; width: 1536px; height: 864px; object-fit: cover; }
+.band { left: 192px; top: 936px; font-size: 64px; }
+  </style>
+  <div id="root" data-composition-id="s08" data-width="1920" data-height="1080" data-duration="4.5">
+    <div class="frame"><div id="s08-push" class="push">
+      <video id="s08-v" class="clip" src="assets/clips/how-80.mp4" data-start="0" data-duration="4.5" data-media-start="0" muted playsinline></video>
+    </div></div>
+    <h2 id="s08-t" class="t band clip" data-start="0" data-duration="4.5">Read from the PDF by Claude</h2>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s08-t", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "expo.out" }, 0.5);
+
+    window.__timelines["s08"] = tl;
+  </script>
+</template>

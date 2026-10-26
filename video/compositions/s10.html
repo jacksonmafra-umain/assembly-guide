@@ -1,0 +1,24 @@
+<template>
+  <style>
+#root { position: absolute; inset: 0; overflow: hidden; background: #121314; font-family: Inter, sans-serif; }
+.t { position: absolute; color: #ffffff; font-weight: 900; letter-spacing: -0.02em; line-height: 1.02; margin: 0; }
+.t span { display: inline-block; }
+.m { position: absolute; font-family: 'JetBrains Mono', monospace; font-weight: 500; letter-spacing: 0.06em; color: #c9d0db; margin: 0; }
+.a { color: #ff9d3c; }
+  </style>
+  <div id="root" data-composition-id="s10" data-width="1920" data-height="1080" data-duration="4">
+    <div id="s10-dot" class="clip" data-start="0" data-duration="4" style="position:absolute; left:640px; top:497px; width:40px; height:40px; border-radius:50%; background:#ff9d3c;"></div>
+    <h1 id="s10-word" class="t clip" data-start="0" data-duration="4" style="left:712px; top:478px; font-size:72px; letter-spacing:0.14em; font-weight:700;">ASSEMBLY LAB</h1>
+    <p id="s10-url" class="m clip" data-start="0" data-duration="4" style="left:716px; top:590px; font-size:28px;">github.com/jacksonmafra-umain/assembly-guide</p>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#s10-dot", { y: -420 }, { y: 0, duration: 0.55, ease: "power3.in" }, 0.2);
+    tl.fromTo("#s10-dot", { scaleY: 1, scaleX: 1 }, { scaleY: 0.7, scaleX: 1.25, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.out" }, 0.75);
+    tl.fromTo("#s10-word", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.8, ease: "expo.out" }, 0.9);
+    tl.fromTo("#s10-url", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "expo.out" }, 1.7);
+
+    window.__timelines["s10"] = tl;
+  </script>
+</template>
