@@ -12,8 +12,8 @@ const block = (w: number, d: number, h: number, x = 0, y = 0, z = 0) =>
 const PARTS: Record<HardwareKind, () => THREE.BufferGeometry[]> = {
   // fluted wooden peg, Ø8 × 30, half in the panel
   'dowel': () => [rod(8, -15, 15, 12)],
-  // Ø15 × 12 disc set flush into the face, with a turning slot on top
-  'cam-lock': () => [rod(15, -12, 0, 24), block(2, 10, 0.8)],
+  // Ø15 × 12 disc set into the face (its cap 1 mm proud so it reads), with a turning slot on top
+  'cam-lock': () => [rod(15, -11, 1, 24), block(2, 10, 0.8, 0, 0, 1)],
   // Ø6 pin, 24 in the edge and 10 out, with a round head the cam grabs
   'cam-screw': () => [rod(6, -24, 6, 12), rod(8, 6, 10, 12)],
   // Ø4 × 30 screw with a countersunk head

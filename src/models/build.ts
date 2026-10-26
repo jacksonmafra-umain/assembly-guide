@@ -7,6 +7,9 @@ import { makePanel } from './panel';
 
 const DEG = Math.PI / 180;
 
+/** Hardware is drawn larger than life so an 8 mm dowel still reads next to a 2 m panel. */
+export const HARDWARE_DISPLAY_SCALE = 2.5;
+
 export function applyTransform(o: THREE.Object3D, t: Transform): void {
   o.position.set(...t.position);
   o.rotation.set(t.rotation[0] * DEG, t.rotation[1] * DEG, t.rotation[2] * DEG);
@@ -28,6 +31,7 @@ export function buildScene(stage: Stage, r: ResolvedProduct): Map<string, THREE.
       stage.addMesh(obj as THREE.Mesh, assembly);
     } else {
       obj = makeHardware(item.kind);
+      obj.scale.setScalar(HARDWARE_DISPLAY_SCALE);
       const parts = [...obj.children] as THREE.Mesh[];
       assembly.add(obj);
       for (const m of parts) stage.addMesh(m, obj);
