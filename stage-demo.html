@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stage demo</title>
+    <style>
+      html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font: 12px/1.45 ui-monospace, "SF Mono", Menlo, monospace; }
+      #stage { position: fixed; inset: 0; }
+      #ctl { position: fixed; top: 16px; right: 16px; }
+      #live { position: fixed; top: 16px; left: 16px; }
+    </style>
+  </head>
+  <body>
+    <div id="stage" class="stage-host"></div>
+    <div id="ctl"></div>
+    <button id="live">Toggle live</button>
+    <script type="module" src="/src/stage/demo.ts"></script>
+  </body>
+</html>

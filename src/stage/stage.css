@@ -1,0 +1,17 @@
+:root { color-scheme: dark; --bg: #121314; --panel: rgba(22, 23, 24, .85); --line: #26292b; --ink: #c9d0db; --dim: #7d8796; --accent: #ff9d3c; }
+:root[data-theme="light"] { color-scheme: light; --bg: #e9eaea; --panel: rgba(246, 246, 245, .9); --line: #d6d8d8; --ink: #2b2e30; --dim: #6b7075; }
+
+.stage-host { position: relative; overflow: hidden; background: var(--bg); }
+.stage-canvas { display: block; position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
+
+.stage-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.stage-controls button { all: unset; cursor: pointer; }
+.stage-controls .swatches { display: flex; align-items: center; gap: 2px; padding: 2px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); }
+.stage-controls .swatches button { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; }
+.stage-controls .swatches button i { width: 10px; height: 10px; border-radius: 50%; background: var(--sw); transition: transform .2s; }
+.stage-controls .swatches button:hover i { transform: scale(1.18); }
+.stage-controls .swatches button[aria-checked="true"] { box-shadow: 0 0 0 1px var(--sw) inset; }
+.stage-controls .pill { height: 28px; padding: 0 11px; display: flex; align-items: center; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--dim); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.stage-controls .pill[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.stage-controls .round { width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--ink); font-size: 14px; }
+.stage-controls .pill:hover, .stage-controls .round:hover { border-color: var(--dim); }
