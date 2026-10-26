@@ -8,3 +8,4 @@ video/captures/
 video/captures-*.log
 video/renders/
 video/assets/clips/
+video/.hyperframes/
