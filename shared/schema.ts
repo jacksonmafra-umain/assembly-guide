@@ -140,6 +140,8 @@ export function parseProduct(json: unknown, file: string): Product {
       if (a.type === 'insert-hardware') {
         if (!parts.has(a.partNumber)) fail(`${aAt}.partNumber`, `unknown part "${a.partNumber}"`);
         if (!panelIds.has(a.target.panelId)) fail(`${aAt}.target.panelId`, `unknown panel "${a.target.panelId}"`);
+        const offsets = a.target.offsetsMm;
+        if (offsets && offsets.length !== a.count) fail(`${aAt}.target.offsetsMm`, `has ${offsets.length} entries but count is ${a.count}`);
       }
     });
   });

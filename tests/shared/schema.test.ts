@@ -33,6 +33,15 @@ test('parseProduct rejects insert-hardware whose partNumber is not in hardware',
   expect(() => parseProduct(p, 'x.json')).toThrow(/steps\[0\]\.actions\[1\]\.partNumber.*999999/);
 });
 
+test('parseProduct rejects offsetsMm whose length differs from count', () => {
+  const p = minimalProduct();
+  p.steps[0].actions.push({
+    type: 'insert-hardware', partNumber: '101339', kind: 'dowel', count: 2,
+    target: { panelId: 'side-left', face: '+z', offsetsMm: [40] }, from: '+z',
+  });
+  expect(() => parseProduct(p, 'x.json')).toThrow(/steps\[0\]\.actions\[1\]\.target\.offsetsMm.*2/);
+});
+
 test('parseProduct rejects step indexes out of order', () => {
   const p = minimalProduct();
   p.steps[0].index = 2;
