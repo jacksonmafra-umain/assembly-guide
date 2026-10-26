@@ -1,0 +1,136 @@
+{
+  "id": "billy-corner-combo",
+  "name": "BILLY corner combination with extension units",
+  "components": [
+    {
+      "instanceId": "left",
+      "productId": "billy-80",
+      "placement": {
+        "position": {
+          "x": 0,
+          "y": 800,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -90
+        }
+      }
+    },
+    {
+      "instanceId": "leftExt",
+      "productId": "billy-ext",
+      "placement": {
+        "position": {
+          "x": 0,
+          "y": 800,
+          "z": 2020
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -90
+        }
+      }
+    },
+    {
+      "instanceId": "middle",
+      "productId": "billy-40",
+      "placement": {
+        "position": {
+          "x": 280,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    {
+      "instanceId": "middleExt",
+      "productId": "billy-ext-40",
+      "placement": {
+        "position": {
+          "x": 280,
+          "y": 0,
+          "z": 2020
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    {
+      "instanceId": "right",
+      "productId": "billy-80",
+      "placement": {
+        "position": {
+          "x": 680,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    {
+      "instanceId": "rightExt",
+      "productId": "billy-ext",
+      "placement": {
+        "position": {
+          "x": 680,
+          "y": 0,
+          "z": 2020
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    {
+      "instanceId": "corner",
+      "productId": "billy-corner",
+      "placement": {
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "roles": {
+        "left": "left",
+        "middle": "middle",
+        "right": "right",
+        "leftExt": "leftExt",
+        "middleExt": "middleExt"
+      }
+    }
+  ],
+  "sequence": [
+    "left",
+    "middle",
+    "right",
+    "corner@1",
+    "corner@3",
+    "leftExt",
+    "middleExt",
+    "rightExt",
+    "corner@2"
+  ]
+}
