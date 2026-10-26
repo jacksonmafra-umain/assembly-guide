@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import type { Move, ResolvedProduct } from '@shared/rules/resolve';
 
 /** Smallest box the camera frames for one part, mm. */
-export const DETAIL_MIN_MM = 140;
+export const DETAIL_MIN_MM = 260;
 /** Playback speed of the detail replay (1 = real time). */
 export const DETAIL_SPEED = 0.35;
 /** Seconds of step time the seated pose is held before the replay loops. */

@@ -83,7 +83,8 @@ export function renderAssembly(host: HTMLElement, ctx: AppContext, route: Route)
   let framedStep = 0;
   function sync() {
     const step = r!.steps[player.step - 1]!;
-    if (framedStep !== player.step) {
+    // ?capture&wide (video recording): keep the whole product in frame instead of following each step
+    if (framedStep !== player.step && !new URLSearchParams(location.search).has('wide')) {
       framedStep = player.step;
       ctx.stage.scene.updateMatrixWorld(true);
       ctx.stage.frame(stepFocusBox(r!, player.step).applyMatrix4(assembly.matrixWorld), true);
@@ -138,7 +139,7 @@ export function renderAssembly(host: HTMLElement, ctx: AppContext, route: Route)
     const key = detail!.keys[detail!.index]!;
     const target = detailTarget(r!, player.step, key)!;
     const state = sceneStateAt(r!, player.step, detailTime(target.move, (now - detail!.start) / 1000));
-    state.live = new Set(state.live.has(key) ? [key] : []);
+    state.live = new Set([key]); // the part stays lit for the whole replay
     applyState(objects, state, ctx.stage);
   }
   bar.addEventListener('click', (e) => {
