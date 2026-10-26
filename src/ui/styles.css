@@ -67,3 +67,18 @@ button { font: inherit; }
   .showroom { grid-template-columns: 1fr; grid-template-rows: auto minmax(360px, 60vh) auto; }
   .gallery .main { height: 280px; }
 }
+
+/* assembly */
+.assembly { display: grid; grid-template-rows: auto minmax(420px, 64vh) auto; gap: 12px; }
+.stepbar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.transport { display: flex; gap: 6px; }
+.transport .button { min-width: 44px; justify-content: center; }
+.counter { letter-spacing: .08em; text-transform: uppercase; font-size: 11px; color: var(--dim); white-space: nowrap; }
+.ticks { display: flex; gap: 3px; flex: 1; min-width: 160px; }
+.ticks button { all: unset; cursor: pointer; flex: 1; height: 6px; border-radius: 3px; background: var(--line); }
+.ticks button.done { background: var(--dim); }
+.ticks button[aria-selected="true"] { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.step-info .text { font-size: 15px; margin: 4px 0 12px; }
+.step-info .uses { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 4px 16px; }
+.step-info .uses li { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.step-info .uses small { color: var(--dim); }
