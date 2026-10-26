@@ -51,5 +51,5 @@ Return step ${index}:
   - place-panel for each panel that joins the assembly in this step: its panelId from the inventory, its final pose in the frame above, and "from": the axis direction the panel comes in from (the opposite of the arrow in the drawing; a panel lowered onto the assembly comes from "+z").
   - insert-hardware for each group of hardware going into one face of one panel: partNumber and kind from the inventory, count, target panelId and face, and "from". Only add offsetsMm (distances along the face from its low-coordinate end, exactly one entry per part, so its length equals count) or acrossMm when the drawing clearly shows positions; otherwise leave them out. Hardware that sits in two rows on one face is two insert-hardware actions.
   - reorient when the drawing turns the whole assembly (e.g. stands it up from lying on its back): the new pose of the assembly.
-Use only panel ids and part numbers from the inventory. A panel is placed exactly once in the whole manual.`;
+Use only panel ids and part numbers from the inventory. When the manual prepares a loose panel (e.g. pushes dowels into it) before joining it, place it first at a staging pose 600 mm in front of its final position (y + 600), then place it again at its final pose in the step where it is joined; hardware set into it travels with it.`;
 }
