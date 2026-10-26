@@ -1,0 +1,210 @@
+{
+  "id": "billy-corner",
+  "name": "BILLY corner hardware",
+  "dimensionsMm": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "materials": {
+    "panelThickness": 15,
+    "backThickness": 3
+  },
+  "panels": [],
+  "hardware": [
+    {
+      "partNumber": "115257",
+      "kind": "corner-fitting",
+      "quantity": 2
+    },
+    {
+      "partNumber": "100362",
+      "kind": "wood-screw",
+      "quantity": 4
+    },
+    {
+      "partNumber": "102715",
+      "kind": "wall-bracket",
+      "quantity": 1
+    },
+    {
+      "partNumber": "109534",
+      "kind": "wood-screw",
+      "quantity": 2
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "sourcePages": [
+        5
+      ],
+      "text": "Join the tops of the left bookcase and the corner bookcase with a corner plate and 2 screws.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "115257",
+          "kind": "corner-fitting",
+          "count": 1,
+          "target": {
+            "panelId": "left:top",
+            "face": "+z",
+            "offsetsMm": [
+              745
+            ],
+            "acrossMm": 240
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "100362",
+          "kind": "wood-screw",
+          "count": 1,
+          "target": {
+            "panelId": "left:top",
+            "face": "+z",
+            "offsetsMm": [
+              745
+            ],
+            "acrossMm": 240
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "100362",
+          "kind": "wood-screw",
+          "count": 1,
+          "target": {
+            "panelId": "middle:top",
+            "face": "+z",
+            "offsetsMm": [
+              30
+            ],
+            "acrossMm": 240
+          },
+          "from": "+z"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "sourcePages": [
+        6
+      ],
+      "text": "Join the tops of the two extension units the same way.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "115257",
+          "kind": "corner-fitting",
+          "count": 1,
+          "target": {
+            "panelId": "leftExt:top",
+            "face": "+z",
+            "offsetsMm": [
+              745
+            ],
+            "acrossMm": 240
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "100362",
+          "kind": "wood-screw",
+          "count": 1,
+          "target": {
+            "panelId": "leftExt:top",
+            "face": "+z",
+            "offsetsMm": [
+              745
+            ],
+            "acrossMm": 240
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "100362",
+          "kind": "wood-screw",
+          "count": 1,
+          "target": {
+            "panelId": "middleExt:top",
+            "face": "+z",
+            "offsetsMm": [
+              30
+            ],
+            "acrossMm": 240
+          },
+          "from": "+z"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "sourcePages": [
+        7
+      ],
+      "text": "Fix the corner bookcase to the right bookcase with an angle bracket and 2 screws.",
+      "actions": [
+        {
+          "type": "insert-hardware",
+          "partNumber": "102715",
+          "kind": "wall-bracket",
+          "count": 1,
+          "target": {
+            "panelId": "right:top",
+            "face": "+z",
+            "offsetsMm": [
+              30
+            ],
+            "acrossMm": 140
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "109534",
+          "kind": "wood-screw",
+          "count": 1,
+          "target": {
+            "panelId": "right:top",
+            "face": "+z",
+            "offsetsMm": [
+              30
+            ],
+            "acrossMm": 140
+          },
+          "from": "+z"
+        },
+        {
+          "type": "insert-hardware",
+          "partNumber": "109534",
+          "kind": "wood-screw",
+          "count": 1,
+          "target": {
+            "panelId": "middle:top",
+            "face": "+z",
+            "offsetsMm": [
+              340
+            ],
+            "acrossMm": 140
+          },
+          "from": "+z"
+        }
+      ]
+    }
+  ],
+  "source": {
+    "pdf": "/pdfs/billy-corner-hardware-galvanized__AA-197501-5-2.pdf"
+  },
+  "roles": [
+    "left",
+    "middle",
+    "right",
+    "leftExt",
+    "middleExt"
+  ]
+}
