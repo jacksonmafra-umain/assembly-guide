@@ -16,8 +16,8 @@
     const tl = gsap.timeline({ paused: true });
     tl.fromTo("#s10-dot", { y: -420 }, { y: 0, duration: 0.55, ease: "power3.in" }, 0.2);
     tl.fromTo("#s10-dot", { scaleY: 1, scaleX: 1 }, { scaleY: 0.7, scaleX: 1.25, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.out" }, 0.75);
-    tl.fromTo("#s10-word", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.8, ease: "expo.out" }, 0.9);
-    tl.fromTo("#s10-url", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "expo.out" }, 1.7);
+    tl.fromTo("#s10-word", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "expo.out" }, 0.8);
+    tl.fromTo("#s10-url", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.6, ease: "expo.out" }, 1.2);
 
     window.__timelines["s10"] = tl;
   </script>
