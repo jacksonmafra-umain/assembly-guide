@@ -160,7 +160,7 @@ export function createStage(host: HTMLElement): Stage {
     shadow.visible = true; shadow.scale.set(s.x * 1.3 + 0.4, s.z * 1.3 + 0.4, 1); shadow.position.set(target.x, box.min.y - 0.005, target.z);
     const to = target.clone().addScaledVector(ISO_DIR, fitDist);
     if (animate) camAnim = { from: camera.position.clone(), fromT: controls.target.clone(), to, toT: target.clone(), t: 0, zoom0: camera === ortho ? ortho.zoom : undefined };
-    else { controls.target.copy(target); camera.position.copy(to); if (camera === ortho) { orthoH = fitDist * fovK(); ortho.zoom = 1; orthoFrustum(); } }
+    else { camAnim = null; controls.target.copy(target); camera.position.copy(to); if (camera === ortho) { orthoH = fitDist * fovK(); ortho.zoom = 1; orthoFrustum(); } }
   }
 
   let isoView = false;
@@ -262,7 +262,7 @@ export function createStage(host: HTMLElement): Stage {
   setTheme((load('theme') as ThemeName | null) ?? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
   setAccent(load('accent') ?? 'ember');
   setRevolve(load('revolve') === '1');
-  const startIso = load('iso') === '1';
+
 
   const stage: Stage = {
     scene, root, addMesh, finalizeLines, setLive, frame, setIsoView, setRevolve, setTheme, setAccent,
@@ -271,6 +271,6 @@ export function createStage(host: HTMLElement): Stage {
     onThemeChange(fn) { themeHooks.add(fn); return () => themeHooks.delete(fn); },
     dispose() { cancelAnimationFrame(raf); resize.disconnect(); controls.dispose(); renderer.dispose(); renderer.domElement.remove(); },
   };
-  if (startIso) queueMicrotask(() => setIsoView(true));
+  if (load('iso') === '1') setIsoView(true);
   return stage;
 }
