@@ -19,7 +19,7 @@ export function showAssembled(slot: HTMLElement, ctx: AppContext, id: string): (
   const objects = buildScene(ctx.stage, r);
   applyState(objects, sceneStateAt(r, 0, 0), ctx.stage);
   ctx.stage.scene.updateMatrixWorld(true);
-  ctx.stage.frame(new THREE.Box3().setFromObject(ctx.stage.root), false);
+  ctx.stage.frame(new THREE.Box3().setFromObject(ctx.stage.root), false, true);
   return () => disposeScene(objects);
 }
 

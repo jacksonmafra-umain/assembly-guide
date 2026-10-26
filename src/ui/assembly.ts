@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import type { ResolvedProduct } from '@shared/rules/resolve';
 import { applyState, buildScene, disposeScene } from '../models/build';
+import { detailKeys, detailTarget, detailTime } from '../detail';
 import { createPlayer } from '../player';
 import { formatRoute, type Route } from '../router';
 import { sceneStateAt, stepDuration } from '../timeline';
@@ -46,11 +47,18 @@ export function renderAssembly(host: HTMLElement, ctx: AppContext, route: Route)
         <div class="ticks" role="tablist" aria-label="Steps">${r.steps.map((s) =>
           `<button role="tab" data-step="${s.index}" title="Step ${s.index}"></button>`).join('')}</div>
       </div>
-      <div class="stage-slot"></div>
+      <div class="stage-slot">
+        <div class="detail-bar" hidden>
+          <span class="label">Detail</span><b class="detail-name"></b><span class="detail-count"></span>
+          <button class="button" data-d="prev" aria-label="Previous part">‹</button>
+          <button class="button" data-d="next" aria-label="Next part">›</button>
+          <button class="button primary" data-d="close">✕ Back to step</button>
+        </div>
+      </div>
       <div class="panel step-info">
         <h2></h2>
         <p class="text"></p>
-        <p class="label">Parts in this step</p>
+        <p class="label">Parts in this step · click one, or click a part in 3D, to zoom in</p>
         <ul class="uses"></ul>
       </div>
     </section>`;
@@ -60,7 +68,7 @@ export function renderAssembly(host: HTMLElement, ctx: AppContext, route: Route)
   const objects = buildScene(ctx.stage, r);
   applyState(objects, sceneStateAt(r, 0, 0), ctx.stage);
   ctx.stage.scene.updateMatrixWorld(true);
-  ctx.stage.frame(new THREE.Box3().setFromObject(ctx.stage.root), false);
+  ctx.stage.frame(new THREE.Box3().setFromObject(ctx.stage.root), false, true);
 
   const player = createPlayer({
     steps: r.steps.length,
@@ -84,7 +92,7 @@ export function renderAssembly(host: HTMLElement, ctx: AppContext, route: Route)
     title.textContent = `Step ${player.step}`;
     text.textContent = step.text;
     uses.innerHTML = step.uses.map((u) =>
-      `<li><span>${esc(u.label)}${u.partNumber ? ` <small>${esc(u.partNumber)}</small>` : ''}</span><span>× ${u.quantity}</span></li>`).join('');
+      `<li><button data-ref="${esc(u.ref)}" title="Zoom in on ${esc(u.label)}"><span>🔍 ${esc(u.label)}${u.partNumber ? ` <small>${esc(u.partNumber)}</small>` : ''}</span><span>× ${u.quantity}</span></button></li>`).join('');
     playBtn.textContent = player.playing ? '❚❚ Pause' : '▶ Play';
     playBtn.setAttribute('aria-label', player.playing ? 'Pause (space)' : 'Play (space)');
     host.querySelectorAll<HTMLButtonElement>('.ticks button').forEach((b) => {
@@ -94,7 +102,76 @@ export function renderAssembly(host: HTMLElement, ctx: AppContext, route: Route)
     });
     history.replaceState(null, '', formatRoute({ ...route, step: player.step }));
   }
-  const offChange = player.onChange(sync);
+  const offChange = player.onChange(() => { if (detail) exitDetail(false); sync(); });
+
+  // ── detail: zoom in on one part and replay its fit slowly ──
+  const bar = host.querySelector<HTMLElement>('.detail-bar')!;
+  let detail: { keys: string[]; index: number; start: number } | null = null;
+  function showDetail() {
+    if (!detail) return;
+    const target = detailTarget(r!, player.step, detail.keys[detail.index]!);
+    if (!target) return;
+    detail.start = performance.now();
+    bar.hidden = false;
+    bar.querySelector('.detail-name')!.textContent = target.label;
+    bar.querySelector('.detail-count')!.textContent = detail.keys.length > 1 ? `${detail.index + 1} / ${detail.keys.length}` : '';
+    bar.querySelectorAll<HTMLButtonElement>('[data-d="prev"], [data-d="next"]').forEach((b) => { b.hidden = detail!.keys.length < 2; });
+    ctx.stage.scene.updateMatrixWorld(true);
+    // look from the iso corner, swung towards the side the part comes in from
+    const approach = new THREE.Vector3(...target.move.from.position).sub(new THREE.Vector3(...target.move.to.position))
+      .transformDirection(assembly.matrixWorld);
+    const dir = new THREE.Vector3(1, 1, 1).normalize().addScaledVector(approach, 1.2).normalize();
+    ctx.stage.frame(target.box.clone().applyMatrix4(assembly.matrixWorld), true, false, dir);
+  }
+  function enterDetail(keys: string[], index = 0) {
+    if (!keys.length) return;
+    player.pause();
+    detail = { keys, index, start: performance.now() };
+    showDetail();
+  }
+  function exitDetail(reframe = true) {
+    detail = null;
+    bar.hidden = true;
+    if (reframe) { framedStep = 0; sync(); }
+  }
+  function renderDetail(now: number) {
+    const key = detail!.keys[detail!.index]!;
+    const target = detailTarget(r!, player.step, key)!;
+    const state = sceneStateAt(r!, player.step, detailTime(target.move, (now - detail!.start) / 1000));
+    state.live = new Set(state.live.has(key) ? [key] : []);
+    applyState(objects, state, ctx.stage);
+  }
+  bar.addEventListener('click', (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>('button');
+    if (!b || !detail) return;
+    if (b.dataset.d === 'close') exitDetail();
+    else {
+      const n = detail.keys.length;
+      detail.index = (detail.index + (b.dataset.d === 'next' ? 1 : n - 1)) % n;
+      showDetail();
+    }
+    b.blur();
+  });
+  uses.addEventListener('click', (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-ref]');
+    if (!b) return;
+    enterDetail(detailKeys(r!, player.step, b.dataset.ref!));
+    b.blur();
+  });
+  // a click (not a drag) on a part in 3D zooms in on it
+  let down: [number, number] | null = null;
+  const onDown = (e: PointerEvent) => { down = [e.clientX, e.clientY]; };
+  const onUp = (e: PointerEvent) => {
+    if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5) return;
+    let o = ctx.stage.pick(e.clientX, e.clientY);
+    while (o && !objects.has(o.name)) o = o.parent;
+    if (!o) return;
+    const key = o.name, ref = key.split('#')[0]!;
+    const keys = detailKeys(r!, player.step, ref);
+    if (keys.includes(key)) enterDetail(keys, keys.indexOf(key));
+  };
+  ctx.stageHost.addEventListener('pointerdown', onDown);
+  ctx.stageHost.addEventListener('pointerup', onUp);
   player.goTo(route.step);
 
   host.querySelector('.stepbar')!.addEventListener('click', (e) => {
@@ -108,14 +185,19 @@ export function renderAssembly(host: HTMLElement, ctx: AppContext, route: Route)
   });
   const onKey = (e: KeyboardEvent) => {
     if (e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement).closest('input, textarea')) return;
-    if (e.key === 'ArrowLeft') player.prev();
+    if (e.key === 'Escape' && detail) exitDetail();
+    else if (e.key === 'ArrowLeft') player.prev();
     else if (e.key === 'ArrowRight') player.next();
     else if (e.key === ' ') (player.playing ? player.pause() : player.play());
     else return;
     e.preventDefault();
   };
   addEventListener('keydown', onKey);
-  const offTick = ctx.stage.onTick(() => player.tick());
+  const offTick = ctx.stage.onTick((now) => (detail ? renderDetail(now) : player.tick()));
 
-  return () => { offTick(); offChange(); removeEventListener('keydown', onKey); disposeScene(objects); };
+  return () => {
+    offTick(); offChange(); removeEventListener('keydown', onKey);
+    ctx.stageHost.removeEventListener('pointerdown', onDown); ctx.stageHost.removeEventListener('pointerup', onUp);
+    disposeScene(objects);
+  };
 }

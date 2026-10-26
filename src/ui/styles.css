@@ -99,3 +99,13 @@ button { font: inherit; }
 .pane .stage-slot { height: 420px; min-height: 0; }
 .facts pre { margin: 8px 0 0; white-space: pre-wrap; color: var(--ink); }
 @media (max-width: 1100px) { .trio, .pipeline { grid-template-columns: 1fr; } }
+
+/* part detail */
+.detail-bar { position: absolute; z-index: 2; top: 12px; left: 12px; right: 12px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 8px 10px; border: 1px solid var(--accent); border-radius: 10px; background: var(--panel); }
+.detail-bar[hidden] { display: none; }
+.detail-bar .detail-name { color: var(--accent); }
+.detail-bar .detail-count { color: var(--dim); margin-right: auto; }
+.detail-bar .label { margin: 0; }
+.step-info .uses button { all: unset; cursor: pointer; display: flex; justify-content: space-between; gap: 12px; width: 100%; }
+.step-info .uses button:hover { color: var(--accent); }
