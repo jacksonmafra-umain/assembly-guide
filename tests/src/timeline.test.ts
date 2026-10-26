@@ -76,3 +76,15 @@ test('negative time is treated as the start of the step', () => {
   const r = threeSteps();
   expect(sceneStateAt(r, 2, -1)).toEqual(sceneStateAt(r, 2, 0));
 });
+
+test('earlier steps show an item where its latest move up to then left it', () => {
+  const p = minimalProduct();
+  p.panels.push({ id: 'top', name: 'Top', role: 'top', size: { x: 770, y: 280, z: 15 } });
+  const pose = (y: number) => ({ position: { x: 15, y, z: 2005 }, rotation: { x: 0, y: 0, z: 0 } });
+  p.steps[0].actions.push({ type: 'place-panel', panelId: 'top', pose: pose(600), from: '+z' });
+  p.steps.push({ index: 2, sourcePages: [5], text: 'Fit.', actions: [{ type: 'place-panel', panelId: 'top', pose: pose(0), from: '+y' }] });
+  p.steps.push({ index: 3, sourcePages: [6], text: 'Again.', actions: [{ type: 'place-panel', panelId: 'side-left', pose: p.steps[0].actions[0].pose, from: '-x' }] });
+  const r = resolveProduct(parseProduct(p, 'x.json'));
+  expect(sceneStateAt(r, 2, 0).transforms.get('top')!.position).toEqual([15, 600, 2005]);
+  expect(sceneStateAt(r, 3, 0).transforms.get('top')!.position).toEqual([15, 0, 2005]);
+});

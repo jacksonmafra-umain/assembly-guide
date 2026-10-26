@@ -79,3 +79,42 @@ test('uses lists placed panels and hardware quantities for the step', () => {
     { label: 'Dowel', partNumber: '101339', quantity: 2 },
   ]);
 });
+
+function stagedProduct() {
+  // step 1: top laid out 600 mm in front and given 2 dowels; step 2: top moved into place
+  const p = minimalProduct();
+  p.panels.push(top);
+  p.hardware[0].quantity = 2;
+  const pose = (y: number) => ({ position: { x: 15, y, z: 2005 }, rotation: { x: 0, y: 0, z: 0 } });
+  p.steps[0].actions.push(
+    { type: 'place-panel', panelId: 'top', pose: pose(600), from: '+z' },
+    { type: 'insert-hardware', partNumber: '101339', kind: 'dowel', count: 2, target: { panelId: 'top', face: '-x' }, from: '-x' },
+  );
+  p.steps.push({ index: 2, sourcePages: [5], text: 'Fit the top.', actions: [{ type: 'place-panel', panelId: 'top', pose: pose(0), from: '+y' }] });
+  return resolveProduct(parseProduct(p, 'x.json'));
+}
+
+test('a panel placed again is one item that moves from its staged pose to its new pose', () => {
+  const r = stagedProduct();
+  expect(r.items.filter((i) => i.key === 'top')).toHaveLength(1);
+  expect(r.items.find((i) => i.key === 'top')!.final.position).toEqual([15, 0, 2005]);
+  const move = r.steps[1]!.moves.find((m) => m.itemKey === 'top')!;
+  expect(move.from.position).toEqual([15, 600, 2005]);
+  expect(move.to.position).toEqual([15, 0, 2005]);
+});
+
+test('hardware goes into a panel where the panel is at that step', () => {
+  const r = stagedProduct();
+  const move = r.steps[0]!.moves.find((m) => m.itemKey === '101339#1')!;
+  expect(move.to.position[1]).toBe(600 + 37);
+});
+
+test('hardware in a panel moves with the panel when it is placed again', () => {
+  const r = stagedProduct();
+  const move = r.steps[1]!.moves.find((m) => m.itemKey === '101339#1')!;
+  expect(move.from.position[1]).toBe(637);
+  expect(move.to.position[1]).toBe(37);
+  const panelMove = r.steps[1]!.moves.find((m) => m.itemKey === 'top')!;
+  expect([move.delay, move.duration]).toEqual([panelMove.delay, panelMove.duration]);
+  expect(r.items.find((i) => i.key === '101339#1')!.final.position[1]).toBe(37);
+});

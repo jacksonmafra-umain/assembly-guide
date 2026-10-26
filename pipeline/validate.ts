@@ -30,8 +30,8 @@ export function validateProduct(p: Product, dimsMm: Vec3 | null): Issue[] {
   if (dimsMm) {
     const min = { x: Infinity, y: Infinity, z: Infinity };
     const max = { x: -Infinity, y: -Infinity, z: -Infinity };
-    for (const a of actions) {
-      if (a.type !== 'place-panel') continue;
+    const lastPlacement = new Map(actions.flatMap((a) => (a.type === 'place-panel' ? [[a.panelId, a] as const] : [])));
+    for (const a of lastPlacement.values()) {
       const size = p.panels.find((x) => x.id === a.panelId)!.size;
       for (const k of ['x', 'y', 'z'] as const) {
         min[k] = Math.min(min[k], a.pose.position[k]);

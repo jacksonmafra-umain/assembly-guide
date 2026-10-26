@@ -41,3 +41,13 @@ test('a panel never placed is an unplaced-panel error', () => {
   const issues = validateProduct(parseProduct(p, 'x.json'), null);
   expect(issues.filter((i) => i.code === 'unplaced-panel').map((i) => i.level)).toEqual(['error']);
 });
+
+test('the dimension check uses each panel where it finally ends up', () => {
+  const p = minimalProduct();
+  p.steps.push({ index: 2, sourcePages: [5], text: 'Move.', actions: [
+    { type: 'place-panel', panelId: 'side-left', pose: { position: { x: 0, y: 0, z: 0 }, rotation: { x: 0, y: 0, z: 0 } }, from: '-x' },
+  ] });
+  p.steps[0].actions[0].pose.position.y = 900;
+  const issues = validateProduct(parseProduct(p, 'x.json'), { x: 15, y: 280, z: 2020 });
+  expect(issues.filter((i) => i.code === 'dimension')).toEqual([]);
+});

@@ -44,12 +44,23 @@ function offset(t: Transform, dir: Dir, mm: number): Transform {
 }
 
 export function resolveProduct(p: Product): ResolvedProduct {
-  const poses = new Map<string, Pose>();
-  for (const a of p.steps.flatMap((s) => s.actions)) if (a.type === 'place-panel') poses.set(a.panelId, a.pose);
+  // A panel may be placed more than once: first where it is prepared (e.g. laid out to take its dowels),
+  // later where it is joined. Hardware set into a panel travels with it.
+  const firstPose = new Map<string, Pose>();
+  for (const a of p.steps.flatMap((s) => s.actions)) if (a.type === 'place-panel' && !firstPose.has(a.panelId)) firstPose.set(a.panelId, a.pose);
+  const currentPose = new Map<string, Pose>();
+  type Insert = Extract<Product['steps'][number]['actions'][number], { type: 'insert-hardware' }>;
+  const attached = new Map<string, { key: string; action: Insert; k: number }[]>();
 
   const items: ResolvedItem[] = [];
+  const byKey = new Map<string, ResolvedItem>();
+  const add = (item: ResolvedItem) => { items.push(item); byKey.set(item.key, item); };
   const counters = new Map<string, number>();
   let assemblyPose = IDENTITY;
+  const seat = (a: Insert, pose: Pose) => holePositions({
+    panel: p.panels.find((x) => x.id === a.target.panelId)!, pose, face: a.target.face, kind: a.kind, count: a.count,
+    offsetsMm: a.target.offsetsMm, acrossMm: a.target.acrossMm,
+  });
 
   const steps = p.steps.map((step): ResolvedStep => {
     const moves: Move[] = [];
@@ -57,9 +68,23 @@ export function resolveProduct(p: Product): ResolvedProduct {
     const placements = step.actions.filter((a) => a.type === 'place-panel');
     placements.forEach((a, i) => {
       const panel = p.panels.find((x) => x.id === a.panelId)!;
-      const final = poseToTransform(a.pose);
-      items.push({ key: panel.id, kind: 'panel', size: panel.size, label: panel.name, final });
-      moves.push({ itemKey: panel.id, from: offset(final, a.from, PANEL_TRAVEL_MM), to: final, delay: i * PANEL_STAGGER_S, duration: PANEL_DURATION_S });
+      const to = poseToTransform(a.pose);
+      const delay = i * PANEL_STAGGER_S;
+      const previous = currentPose.get(panel.id);
+      if (!previous) {
+        add({ key: panel.id, kind: 'panel', size: panel.size, label: panel.name, final: to });
+        moves.push({ itemKey: panel.id, from: offset(to, a.from, PANEL_TRAVEL_MM), to, delay, duration: PANEL_DURATION_S });
+      } else {
+        byKey.get(panel.id)!.final = to;
+        moves.push({ itemKey: panel.id, from: poseToTransform(previous), to, delay, duration: PANEL_DURATION_S });
+        for (const h of attached.get(panel.id) ?? []) {
+          const from = byKey.get(h.key)!.final;
+          const hTo = seat(h.action, a.pose)[h.k]!;
+          byKey.get(h.key)!.final = hTo;
+          moves.push({ itemKey: h.key, from, to: hTo, delay, duration: PANEL_DURATION_S });
+        }
+      }
+      currentPose.set(panel.id, a.pose);
       uses.push({ label: panel.name, quantity: 1 });
     });
 
@@ -68,20 +93,20 @@ export function resolveProduct(p: Product): ResolvedProduct {
     for (const a of step.actions) {
       if (a.type === 'reorient') assemblyPose = poseToTransform(a.pose);
       if (a.type !== 'insert-hardware') continue;
-      const panel = p.panels.find((x) => x.id === a.target.panelId)!;
-      const pose = poses.get(panel.id) ?? { position: { x: 0, y: 0, z: 0 }, rotation: { x: 0, y: 0, z: 0 } };
-      const finals = holePositions({ panel, pose, face: a.target.face, kind: a.kind, count: a.count, offsetsMm: a.target.offsetsMm, acrossMm: a.target.acrossMm });
-      for (const final of finals) {
+      const pose = currentPose.get(a.target.panelId) ?? firstPose.get(a.target.panelId)
+        ?? { position: { x: 0, y: 0, z: 0 }, rotation: { x: 0, y: 0, z: 0 } };
+      seat(a, pose).forEach((final, k) => {
         const n = (counters.get(a.partNumber) ?? 0) + 1;
         counters.set(a.partNumber, n);
         const key = `${a.partNumber}#${n}`;
-        items.push({ key, kind: a.kind, label: KIND_LABEL[a.kind], final });
+        add({ key, kind: a.kind, label: KIND_LABEL[a.kind], final });
+        (attached.get(a.target.panelId) ?? attached.set(a.target.panelId, []).get(a.target.panelId)!).push({ key, action: a, k });
         const from = offset(final, a.from, HARDWARE_TRAVEL_MM);
         if (a.kind === 'cam-lock') from.rotation[2] -= CAM_TURN_DEG;
         if (!first) t += HARDWARE_STAGGER_S;
         first = false;
         moves.push({ itemKey: key, from, to: final, delay: Math.round(t * 1000) / 1000, duration: HARDWARE_DURATION_S });
-      }
+      });
       const use = uses.find((u) => u.partNumber === a.partNumber);
       if (use) use.quantity += a.count;
       else uses.push({ label: KIND_LABEL[a.kind], partNumber: a.partNumber, quantity: a.count });

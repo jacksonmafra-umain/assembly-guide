@@ -24,14 +24,13 @@ export function sceneStateAt(r: ResolvedProduct, stepIndex: number, t: number): 
   const step = stepIndex <= 0 ? 0 : Math.min(Math.max(1, Math.floor(stepIndex)), n);
   const time = Math.max(0, t);
   const s: SceneState = { visible: new Set(), live: new Set(), transforms: new Map(), assemblyPose: IDENTITY };
-  const finals = new Map(r.items.map((i) => [i.key, i.final]));
 
   if (step === 0) {
     for (const i of r.items) { s.visible.add(i.key); s.transforms.set(i.key, i.final); }
     return s;
   }
   for (const prev of r.steps.slice(0, step - 1)) {
-    for (const m of prev.moves) { s.visible.add(m.itemKey); s.transforms.set(m.itemKey, finals.get(m.itemKey) ?? m.to); }
+    for (const m of prev.moves) { s.visible.add(m.itemKey); s.transforms.set(m.itemKey, m.to); }
   }
   const current = r.steps[step - 1]!;
   s.assemblyPose = current.assemblyPose;
