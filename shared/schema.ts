@@ -87,6 +87,8 @@ export const ProductSchema = z.object({
   hardware: z.array(HardwareLineSchema),
   steps: z.array(StepSchema),
   source: z.object({ pdf: z.string() }),
+  /** For hardware that joins other products (e.g. corner fittings): panel ids may be "<role>:<panel id>". */
+  roles: z.array(z.string()).optional(),
 });
 export type Product = z.infer<typeof ProductSchema>;
 
@@ -129,6 +131,8 @@ export function parseProduct(json: unknown, file: string): Product {
   const p = res.data;
   const fail = (path: string, msg: string): never => { throw new Error(`${file}: ${path}: ${msg}`); };
   const panelIds = new Set(p.panels.map((x) => x.id));
+  const roles = new Set(p.roles ?? []);
+  const knownPanel = (id: string) => panelIds.has(id) || (id.includes(':') && roles.has(id.split(':')[0]!));
   const parts = new Set(p.hardware.map((h) => h.partNumber));
   p.steps.forEach((step, i) => {
     const at = `steps[${i}]`;
@@ -139,7 +143,7 @@ export function parseProduct(json: unknown, file: string): Product {
       if (a.type === 'place-panel' && !panelIds.has(a.panelId)) fail(`${aAt}.panelId`, `unknown panel "${a.panelId}"`);
       if (a.type === 'insert-hardware') {
         if (!parts.has(a.partNumber)) fail(`${aAt}.partNumber`, `unknown part "${a.partNumber}"`);
-        if (!panelIds.has(a.target.panelId)) fail(`${aAt}.target.panelId`, `unknown panel "${a.target.panelId}"`);
+        if (!knownPanel(a.target.panelId)) fail(`${aAt}.target.panelId`, `unknown panel "${a.target.panelId}"`);
         const offsets = a.target.offsetsMm;
         if (offsets && offsets.length !== a.count) fail(`${aAt}.target.offsetsMm`, `has ${offsets.length} entries but count is ${a.count}`);
       }

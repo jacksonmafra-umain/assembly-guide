@@ -59,3 +59,18 @@ test('parseProduct accepts washers as hardware', () => {
   p.hardware.push({ partNumber: 'washer', kind: 'washer', quantity: 4 });
   expect(parseProduct(p, 'x.json').hardware.at(-1)!.kind).toBe('washer');
 });
+
+test('a product with roles may target panels of the products it joins', () => {
+  const p = minimalProduct();
+  p.roles = ['left', 'middle'];
+  p.panels = [];
+  p.steps[0].actions = [{ type: 'insert-hardware', partNumber: '101339', kind: 'dowel', count: 2, target: { panelId: 'left:top', face: '+z' }, from: '+z' }];
+  expect(parseProduct(p, 'x.json').roles).toEqual(['left', 'middle']);
+});
+
+test('an unknown role in a panel reference is rejected', () => {
+  const p = minimalProduct();
+  p.roles = ['left'];
+  p.steps[0].actions = [{ type: 'insert-hardware', partNumber: '101339', kind: 'dowel', count: 2, target: { panelId: 'right:top', face: '+z' }, from: '+z' }];
+  expect(() => parseProduct(p, 'x.json')).toThrow(/target\.panelId.*right:top/);
+});
