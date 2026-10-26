@@ -75,8 +75,8 @@ test('a reorient carries forward from its step and identity applies before it', 
 test('uses lists placed panels and hardware quantities for the step', () => {
   const r = resolveProduct(parseProduct(twoStepProduct(), 'x.json'));
   expect(r.steps[0]!.uses).toEqual([
-    { label: 'Left side', quantity: 1 },
-    { label: 'Dowel', partNumber: '101339', quantity: 2 },
+    { label: 'Left side', ref: 'side-left', quantity: 1 },
+    { label: 'Dowel', partNumber: '101339', ref: '101339', quantity: 2 },
   ]);
 });
 

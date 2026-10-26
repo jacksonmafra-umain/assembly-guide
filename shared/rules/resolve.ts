@@ -9,7 +9,8 @@ export type ResolvedStep = {
   index: number;
   text: string;
   sourcePages: number[];
-  uses: { label: string; partNumber?: string; quantity: number }[];
+  /** Parts used; `ref` is the panel id or part number, for picking the part in the scene. */
+  uses: { label: string; partNumber?: string; ref: string; quantity: number }[];
   moves: Move[];
   assemblyPose: Transform;
   instanceId?: string;
@@ -85,7 +86,7 @@ export function resolveProduct(p: Product): ResolvedProduct {
         }
       }
       currentPose.set(panel.id, a.pose);
-      uses.push({ label: panel.name, quantity: 1 });
+      uses.push({ label: panel.name, ref: panel.id, quantity: 1 });
     });
 
     let t = placements.length ? (placements.length - 1) * PANEL_STAGGER_S + PANEL_DURATION_S : 0;
@@ -109,7 +110,7 @@ export function resolveProduct(p: Product): ResolvedProduct {
       });
       const use = uses.find((u) => u.partNumber === a.partNumber);
       if (use) use.quantity += a.count;
-      else uses.push({ label: KIND_LABEL[a.kind], partNumber: a.partNumber, quantity: a.count });
+      else uses.push({ label: KIND_LABEL[a.kind], partNumber: a.partNumber, ref: a.partNumber, quantity: a.count });
     }
     return { index: step.index, text: step.text, sourcePages: step.sourcePages, uses, moves, assemblyPose };
   });
