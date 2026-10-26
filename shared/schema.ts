@@ -23,7 +23,7 @@ export const PanelRoleSchema = z.enum([
 export type PanelRole = z.infer<typeof PanelRoleSchema>;
 
 export const HardwareKindSchema = z.enum([
-  'dowel', 'cam-lock', 'cam-screw', 'wood-screw', 'nail', 'shelf-pin', 'corner-fitting', 'wall-bracket', 'connector',
+  'dowel', 'cam-lock', 'cam-screw', 'wood-screw', 'nail', 'shelf-pin', 'corner-fitting', 'wall-bracket', 'connector', 'washer',
 ]);
 export type HardwareKind = z.infer<typeof HardwareKindSchema>;
 

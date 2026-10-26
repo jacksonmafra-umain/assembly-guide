@@ -53,3 +53,9 @@ test('parseProduct rejects a malformed shape with file name', () => {
   p.panels[0].role = 'roof';
   expect(() => parseProduct(p, 'bad.json')).toThrow(/bad\.json.*panels\[0\]\.role/);
 });
+
+test('parseProduct accepts washers as hardware', () => {
+  const p = minimalProduct();
+  p.hardware.push({ partNumber: 'washer', kind: 'washer', quantity: 4 });
+  expect(parseProduct(p, 'x.json').hardware.at(-1)!.kind).toBe('washer');
+});

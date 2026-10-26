@@ -28,6 +28,8 @@ const PARTS: Record<HardwareKind, () => THREE.BufferGeometry[]> = {
   'wall-bracket': () => [block(40, 20, 2, 0, 0, -2), block(40, 2, 18, 0, -9, 0)],
   // Ø8 × 40 connector bolt
   'connector': () => [rod(8, -20, 20, 12), rod(12, 20, 22, 16)],
+  // flat washer Ø14 × 1 lying on the face
+  'washer': () => [rod(14, 0, 1, 20)],
 };
 
 /** A group of meshes (materials set by the stage) for one hardware part. */

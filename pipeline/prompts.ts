@@ -19,7 +19,8 @@ const KINDS = `Hardware kinds (pick the closest):
 - shelf-pin: small metal pin that holds an adjustable shelf.
 - corner-fitting: metal bracket joining two units at a corner.
 - wall-bracket: wall anchor / tip-over restraint.
-- connector: bolt or sleeve joining two panels or units.`;
+- connector: bolt, plug or sleeve joining two panels or units.
+- washer: flat ring under a screw head.`;
 
 export function inventoryPrompt(name: string, dims: Vec3 | null): string {
   return `This is the complete assembly manual for "${name}".

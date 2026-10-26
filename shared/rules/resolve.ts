@@ -29,7 +29,7 @@ export const IDENTITY: Transform = { position: [0, 0, 0], rotation: [0, 0, 0] };
 
 export const KIND_LABEL: Record<HardwareKind, string> = {
   'dowel': 'Dowel', 'cam-lock': 'Cam lock', 'cam-screw': 'Cam screw', 'wood-screw': 'Screw', 'nail': 'Nail',
-  'shelf-pin': 'Shelf pin', 'corner-fitting': 'Corner fitting', 'wall-bracket': 'Wall bracket', 'connector': 'Connector',
+  'shelf-pin': 'Shelf pin', 'corner-fitting': 'Corner fitting', 'wall-bracket': 'Wall bracket', 'connector': 'Connector', 'washer': 'Washer',
 };
 
 const poseToTransform = (p: Pose): Transform => ({
