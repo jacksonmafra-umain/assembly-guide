@@ -248,7 +248,8 @@ export function createStage(host: HTMLElement): Stage {
   const ticks = new Set<(now: number, dt: number) => void>();
   const ease = (t: number) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
   let last = performance.now(), raf = 0;
-  function loop(now: number) {
+  function loop() {
+    const now = performance.now();
     const dt = Math.min(0.05, (now - last) / 1000); last = now;
     if (camAnim) {
       if (camAnim.start === undefined) { camAnim.start = now; controls.enableDamping = false; }

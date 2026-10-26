@@ -7,6 +7,18 @@
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      // ?capture: a virtual clock for frame-exact recording. Time only moves when __advance(ms) is called;
+      // the promise resolves once the browser has painted that moment.
+      if (new URLSearchParams(location.search).has('capture')) {
+        let now = 0;
+        performance.now = () => now;
+        window.__advance = (ms) => new Promise((done) => {
+          now += ms;
+          requestAnimationFrame(() => requestAnimationFrame(() => done()));
+        });
+      }
+    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
